@@ -31,9 +31,9 @@ is_input_call <- function(x) {
 #' @noRd
 assign_reactive_call <- function(x, repro_call) {
   if (length(repro_call@code) == 1) {
-    eval_call <- rlang::call2("<-", as.symbol(rlang::call_name(x)), !!!repro_call@code)
+    rlang::call2("<-", as.symbol(rlang::call_name(x)), !!!repro_call@code)
   } else {
-    eval_call <- rlang::call2(
+    rlang::call2(
       "<-",
       as.symbol(rlang::call_name(x)),
       rlang::call2("local", rlang::call2("{", !!!repro_call@code))

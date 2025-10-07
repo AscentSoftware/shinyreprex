@@ -4,6 +4,8 @@
 S7::method(repro_chunk, S7::class_call) <- function(x, ..., repro_code = Repro(), env = rlang::caller_env()) {
   if (is.null(rlang::call_name(x))) {
     eval_call <- x
+  } else if (rlang::is_call(x, c("req", "validate"))) {
+    return(repro_code)
   } else if (is_input_call(x)) {
     eval_call <- eval(x, envir = env)
   } else if (is_reactive_val_call(x, env)) {

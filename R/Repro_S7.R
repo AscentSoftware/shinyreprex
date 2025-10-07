@@ -6,7 +6,9 @@
 #' @param code Code chunks found in a given expression
 #' @param packages Packages found in the function calls in the code and/or pre-requisites
 #' @param prerequisites Code chunks used to generate reactive objects found in the code
-#' @param script A print-like method to generate the script for producing the reactive output
+#'
+#' @importFrom purrr map
+#' @importFrom styler style_text
 #'
 #' @rdname repro_s7
 #' @export
@@ -45,8 +47,8 @@ Repro <- S7::new_class(
         # Able to initially set prerequisites slot as empty list
         if (is.null(self@prerequisites) && is.list(value)) {
           self@prerequisites <- value
-        } else if (length(value) > 0L && rlang::is_named(value) && !names(value) %in% names(self@prerequisites)) {
-          self@prerequisites <- c(self@prerequisites, value)
+        } else if (length(value) > 0L && rlang::is_named(value) && !all(names(value) %in% names(self@prerequisites))) {
+          self@prerequisites <- c(self@prerequisites, value[setdiff(names(value), names(self@prerequisites))])
         }
         self
       }
