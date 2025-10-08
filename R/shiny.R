@@ -18,7 +18,7 @@ renderRepro <- function(expr, env = parent.frame(), quoted = FALSE, outputArgs =
   shiny::createRenderFunction(
     func,
     function(value, session, name, ...) {
-      paste(utils::capture.output(cat(value, sep = sep)), collapse = "\n")
+      if (inherits(value, "Repro")) value@script else repro(value)@script
     },
     shiny::textOutput,
     outputArgs
