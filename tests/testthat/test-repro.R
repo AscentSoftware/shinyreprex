@@ -41,12 +41,12 @@ test_that("Able to reproduce a simple one-line reactive", {
     test_server,
     expr = {
       repro_code <- repro(test_reactive)
-      expect_identical(repro_code@script, "")
+      expect_identical(repro_code, "")
 
       session$setInputs(foo = "bar")
 
       repro_code <- repro(test_reactive)
-      expect_identical(repro_code@script, "\"bar\"")
+      expect_identical(repro_code, "\"bar\"")
     }
   )
 })
@@ -71,7 +71,7 @@ test_that("Able to reproduce a reactive stemming from another reactive", {
 
       repro_code <- repro(summary_tbl)
       expect_identical(
-        repro_code@script,
+        repro_code,
         paste(
           "iris_filt <- iris[with(iris, Sepal.Width > 3.5), ]",
           "aggregate(Sepal.Width ~ Species, data = iris_filt, FUN = get(\"median\"))",

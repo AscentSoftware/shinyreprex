@@ -14,9 +14,9 @@ Imports:
     S7,
     purrr,
     rlang,
-    shiny,
     styler
 Suggests:
+    shiny,
     testthat (>= 3.0.0)
 Encoding: UTF-8
 RoxygenNote: 7.3.3

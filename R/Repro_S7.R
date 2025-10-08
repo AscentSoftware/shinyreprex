@@ -11,7 +11,6 @@
 #' @importFrom styler style_text
 #'
 #' @rdname repro_s7
-#' @export
 Repro <- S7::new_class(
   name = "Repro",
   properties = list(

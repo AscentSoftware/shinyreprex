@@ -79,5 +79,5 @@ repro <- function(x) {
     }
   }
 
-  repro_chunk(x, env = rlang::caller_env())
+  repro_chunk(x)@script
 }
