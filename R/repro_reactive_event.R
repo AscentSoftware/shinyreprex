@@ -3,7 +3,6 @@
 #' @noRd
 S7::method(repro_chunk, class_event_reactive) <- function(x, ..., repro_code = Repro(), env = rlang::caller_env()) {
   observer <- attr(x, "observable", exact = TRUE)
-  reactive_body <- rlang::fn_body(observer$.origFunc)
   module_env <- rlang::env_parent(env = environment(observer$.origFunc))
 
   # Accounts for bindEvent and bindCache
