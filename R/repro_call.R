@@ -6,6 +6,16 @@ S7::method(repro_chunk, S7::class_call) <- function(x, ..., repro_code = Repro()
     eval_call <- x
   } else if (rlang::is_call(x, c("req", "validate"))) {
     return(repro_code)
+  } else if (rlang::is_call(x, "if")) {
+    if_args <- rlang::call_args(x)
+    check <- eval(if_args[[1]], envir = env)
+    check_calls <- purrr::map(as.list(if_args[[3 - check]])[-1], repro_chunk, env = env)
+
+    repro_code@packages <- purrr::map(check_calls, "packages") |> unlist()
+    repro_code@prerequisites <- purrr::map(check_calls, "prerequisites") |>
+      purrr::discard(identical, list()) |>
+      unlist(recursive = FALSE)
+    eval_call <- purrr::map(check_calls, "code") |> unlist(recursive = FALSE)
   } else if (is_input_call(x)) {
     eval_call <- eval(x, envir = env)
   } else if (is_reactive_val_call(x, env)) {
