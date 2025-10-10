@@ -46,7 +46,7 @@ Repro <- S7::new_class(
         # Able to initially set prerequisites slot as empty list
         if (is.null(self@prerequisites) && is.list(value)) {
           self@prerequisites <- value
-        } else if (length(value) > 0L && rlang::is_named(value) && !all(names(value) %in% names(self@prerequisites))) {
+        } else if (is_new_reactive(value, self@prerequisites)) {
           self@prerequisites <- c(self@prerequisites, value[setdiff(names(value), names(self@prerequisites))])
         }
         self
@@ -83,3 +83,9 @@ Repro <- S7::new_class(
     )
   )
 )
+
+is_new_reactive <- function(new, exisitng) {
+  length(new) > 0L &&
+    rlang::is_named(new) &&
+    !all(names(new) %in% names(exisitng))
+}

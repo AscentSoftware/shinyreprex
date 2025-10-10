@@ -8,7 +8,7 @@
 #' @param ... Additional arguments to pass to other methods
 #'
 #' @details
-  #' Whilst a default is provided to \code{env}, it is unlikely that this is the same environment `x` is defined
+#' Whilst a default is provided to \code{env}, it is unlikely that this is the same environment `x` is defined
 #' in. This is more of a placeholder for sending the correct environment to
 #'
 #' @return
