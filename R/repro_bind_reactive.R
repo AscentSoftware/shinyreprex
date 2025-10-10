@@ -1,7 +1,7 @@
 #' Reproducing Code for Reactive Object
 #'
 #' @noRd
-S7::method(repro_chunk, class_event_reactive) <- function(x, ..., repro_code = Repro(), env = rlang::caller_env()) {
+S7::method(repro_chunk, class_bind_reactive) <- function(x, ..., repro_code = Repro(), env = rlang::caller_env()) {
   observer <- attr(x, "observable", exact = TRUE)
   module_env <- rlang::env_parent(env = environment(observer$.origFunc))
 

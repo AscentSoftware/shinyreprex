@@ -9,4 +9,7 @@
 #'
 #' @noRd
 class_reactive <- S7::new_S3_class("reactiveExpr")
+
+class_event_cache <- S7::new_S3_class("reactive.cache")
 class_event_reactive <- S7::new_S3_class("reactive.event")
+class_bind_reactive <- S7::new_union(class_event_reactive, class_event_cache)
