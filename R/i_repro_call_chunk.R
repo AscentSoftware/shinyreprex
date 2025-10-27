@@ -3,8 +3,7 @@
 #' @description
 #' A short description...
 #'
-#' @param call_name The function name of `x` converted into an S7 object
-#' @param x \code{\link[shiny]{reactive}} object to make reproducible
+#' @param x \code{call} object to make reproducible, with prefixed class of the call name
 #' @param env The environment `x` is defined in. By default it is the environment of where \code{repro} is called
 #' @param ... Additional arguments to pass to other methods
 #'
@@ -19,6 +18,6 @@
 #' @noRd
 repro_call_chunk <- S7::new_generic(
   name = "repro_call_chunk",
-  dispatch_args = "call_name",
-  fun = function(call_name, x, ..., env = rlang::caller_env()) S7::S7_dispatch()
+  dispatch_args = "x",
+  fun = function(x, ..., env = rlang::caller_env()) S7::S7_dispatch()
 )

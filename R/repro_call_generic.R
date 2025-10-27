@@ -4,8 +4,7 @@
 #' Standard response is to return the called object
 #'
 #' @noRd
-S7::method(repro_call_chunk, S7::class_any) <- function(call_name, x, ...,
-                                                        repro_code = Repro(), env = rlang::caller_env()) {
+S7::method(repro_call_chunk, S7::class_any) <- function(x, repro_code = Repro(), env = rlang::caller_env()) {
   reactive_calls <- vapply(rlang::call_args(x), is_any_reactive_call, env = env, logical(1L))
   repro_args <- lapply(rlang::call_args(x), \(x) repro_chunk(x, env = env))
   eval_args <- purrr::map(repro_args, "code") |> unlist(recursive = FALSE)

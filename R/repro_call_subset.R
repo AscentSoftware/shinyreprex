@@ -4,19 +4,17 @@
 #' Standard response is to return the called object
 #'
 #' @noRd
-S7::method(repro_call_chunk, class_call_subset) <- function(call_name, x, ...,
-                                                            repro_code = Repro(), env = rlang::caller_env()) {
+S7::method(repro_call_chunk, class_call_subset) <- function(x, repro_code = Repro(), env = rlang::caller_env()) {
   if (is_input_call(x)) {
     eval_call <- eval(x, envir = env)
   } else if (is_reactive_values_call(x, env)) {
     reactive_val <- eval(x, envir = env)
     eval_call <- rlang::call2("<-", rlang::call_args(x)[[2]], reactive_val)
   } else {
+    class(x) <- c(".__generic", class(x))
     return(
       repro_call_chunk(
-        call_name = structure(list(), class = "generic"),
         x = x,
-        ...,
         repro_code = repro_code,
         env = env
       )

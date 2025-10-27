@@ -4,8 +4,7 @@
 #' Standard response is to return the called object
 #'
 #' @noRd
-S7::method(repro_call_chunk, class_call_if) <- function(call_name, x, ...,
-                                                        repro_code = Repro(), env = rlang::caller_env()) {
+S7::method(repro_call_chunk, class_call_if) <- function(x, repro_code = Repro(), env = rlang::caller_env()) {
   if_args <- rlang::call_args(x)
   check <- eval(if_args[[1]], envir = env)
 
