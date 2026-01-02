@@ -10,7 +10,7 @@
 #' A character string, that when printed (using \code{\link[base]{cat}}),
 #' displays the script that reproduces the contents of `x`.
 #'
-#' @examplesIf interactive()
+#' @examples
 #' library(shiny)
 #'
 #' ui <- fluidPage(
@@ -62,7 +62,9 @@
 #'   output$code <- renderText(repro(summary_tbl))
 #' }
 #'
-#' shinyApp(ui, server)
+#' if (interactive()) {
+#'   shinyApp(ui, server)
+#' }
 #'
 #' @export
 repro <- function(x) {

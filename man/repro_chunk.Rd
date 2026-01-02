@@ -24,3 +24,4 @@ A short description...
 Whilst a default is provided to \code{env}, it is unlikely that this is the same environment `x` is defined
 in. This is more of a placeholder for sending the correct environment to
 }
+\keyword{internal}

@@ -16,3 +16,4 @@ Repro(code = list(), packages = character(0), prerequisites = list())
 \description{
 An S7 object that holds the code and packages required to re-create a given reactive
 }
+\keyword{internal}

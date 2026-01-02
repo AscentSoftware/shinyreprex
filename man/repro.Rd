@@ -18,7 +18,6 @@ Construct the code within a given \code{\link[shiny]{reactive}} object
 to be able to re-create the output outside of a Shiny session.
 }
 \examples{
-\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 library(shiny)
 
 ui <- fluidPage(
@@ -70,6 +69,8 @@ server <- function(input, output, session) {
   output$code <- renderText(repro(summary_tbl))
 }
 
-shinyApp(ui, server)
-\dontshow{\}) # examplesIf}
+if (interactive()) {
+  shinyApp(ui, server)
+}
+
 }

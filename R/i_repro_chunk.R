@@ -14,6 +14,8 @@
 #' @return
 #' A \code{\link{Repro}} object containing all the necessary code and packages to recreate
 #' the provided expression when evaluated.
+#'
+#' @keywords internal
 repro_chunk <- S7::new_generic(
   name = "repro_chunk",
   dispatch_args = "x",

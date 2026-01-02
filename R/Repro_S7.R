@@ -10,6 +10,7 @@
 #' @importFrom purrr map
 #' @importFrom styler style_text
 #'
+#' @keywords internal
 #' @rdname repro_s7
 Repro <- S7::new_class(
   name = "Repro",
