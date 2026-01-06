@@ -11,7 +11,7 @@ repro_chunk(x, ..., env = rlang::caller_env())
 
 \item{...}{Additional arguments to pass to other methods}
 
-\item{env}{The environment `x` is defined in. By default it is the environment of where \code{repro} is called}
+\item{env}{The environment \code{x} is defined in. By default it is the environment of where \code{repro} is called}
 }
 \value{
 A \code{\link{Repro}} object containing all the necessary code and packages to recreate
@@ -21,7 +21,7 @@ the provided expression when evaluated.
 A short description...
 }
 \details{
-Whilst a default is provided to \code{env}, it is unlikely that this is the same environment `x` is defined
+Whilst a default is provided to \code{env}, it is unlikely that this is the same environment \code{x} is defined
 in. This is more of a placeholder for sending the correct environment to
 }
 \keyword{internal}

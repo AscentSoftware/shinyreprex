@@ -33,7 +33,7 @@ A set of helper functions that determine what type of call is being made within
 an expression.
 
 \code{is_reactive_call} checks whether or not the call is evaluating a
- \code{\link[shiny]{reactive}} variable.
+\code{\link[shiny]{reactive}} variable.
 
 \code{is_reactive_val_call} checks whether or not the call is evaluating a
 \code{\link[shiny]{reactiveVal}} variable.
@@ -44,6 +44,6 @@ within a \code{\link[shiny]{reactiveValues}} variable.
 \code{is_any_reactive_call} checks whether or not the call points to evaluating a
 \code{reactive}, \code{reactiveVal} or \code{reactiveValues}.
 
-`is_input_call` checks whether or not the call points to evaluation an input value.
+\code{is_input_call} checks whether or not the call points to evaluation an input value.
 }
 \keyword{internal}
