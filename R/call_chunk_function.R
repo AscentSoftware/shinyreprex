@@ -14,7 +14,7 @@ S7::method(repro_call_chunk, class_call_function) <- function(x, repro_code = Re
 
   x_args[[1L]] <- purrr::map(fn_args, "code") |>
     purrr::imap(\(x, y) if (length(x)) x[[1L]] else x_args[[1L]][[y]]) |>
-      as.pairlist()
+    as.pairlist()
 
   fn_body <- as.list(x_args[[2L]])[-1L]
   fn_body <- purrr::map(fn_body, repro_chunk, repro_code = repro_code, env = env)
