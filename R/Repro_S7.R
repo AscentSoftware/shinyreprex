@@ -1,7 +1,7 @@
 #' Reproducible Code
 #'
 #' @description
-#' An S7 object that holds the code and packages required to re-create a given reactive
+#' An S7 object that holds the code and packages required to re-create a given reactive.
 #'
 #' @param code Code chunks found in a given expression
 #' @param packages Packages found in the function calls in the code and/or pre-requisites
@@ -85,6 +85,20 @@ Repro <- S7::new_class(
   )
 )
 
+#' Reactive Variables Definition Check
+#'
+#' @description
+#' A helper function to check whether or not the reactive variables to be added
+#' to the Repro object already exists. Used to avoid duplicate definitions being
+#' added to a script.
+#'
+#' @param new,exisitng A named list of reactive variable defintions
+#'
+#' @returns
+#' A boolean stating whether or not there is at least one reactive definition
+#' in `new` that doesn't exist in `existing`
+#'
+#' @keywords internal
 is_new_reactive <- function(new, exisitng) {
   length(new) > 0L &&
     rlang::is_named(new) &&

@@ -14,6 +14,6 @@ Repro(code = list(), packages = character(0), prerequisites = list())
 \item{prerequisites}{Code chunks used to generate reactive objects found in the code}
 }
 \description{
-An S7 object that holds the code and packages required to re-create a given reactive
+An S7 object that holds the code and packages required to re-create a given reactive.
 }
 \keyword{internal}

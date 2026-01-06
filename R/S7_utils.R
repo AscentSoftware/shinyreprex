@@ -1,8 +1,8 @@
 #' Custom S7 Classes
 #'
 #' @description
-#' Additional classes to include in S7 to use in \code{repro_code} and
-#' \code{repro_code_chunk} methods:
+#' Additional classes to include in S7 to use in `repro_code` and
+#' `repro_code_chunk` methods:
 #'
 #' ## Reactives
 #'
@@ -14,7 +14,7 @@
 #' \item{class_event_cache}{The class capturing \code{\link[shiny]{bindCache}} calls}
 #' \item{class_event_reactive}{The class capturing \code{\link[shiny]{bindEvent}} calls}
 #' \item{class_bind_reactive}{
-#' The union of \code{class_event_cache} and \code{class_event_reactive}
+#' The union of `class_event_cache` and `class_event_reactive`
 #' }
 #' }
 #'
@@ -29,7 +29,7 @@
 #' \item{class_call_reactval}{
 #' The class capturing evaluated \code{\link[shiny]{reactiveValues}} objects
 #' }
-#' \item{class_call_if}{The class capturing \code{if} calls}
+#' \item{class_call_if}{The class capturing `if` calls}
 #' \item{class_call_null}{The class capturing undefined calls, such as `pkg::fn`}
 #' \item{class_call_shiny}{
 #' The class capturing ignorable shiny function calls such as
