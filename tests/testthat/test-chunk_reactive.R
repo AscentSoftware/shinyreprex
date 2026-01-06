@@ -27,7 +27,8 @@ test_that("Reactive code chunk is correctly extracted", {
         repro_code@prerequisites,
         list(
           iris_filt = list(
-            str2lang("iris_filt <- iris[with(iris, Sepal.Width > 3.5), ]"))
+            str2lang("iris_filt <- iris[with(iris, Sepal.Width > 3.5), ]")
+          )
         )
       )
     }
