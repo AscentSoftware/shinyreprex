@@ -1,7 +1,7 @@
 # Reactive Variables Definition Check
 
 A helper function to check whether or not the reactive variables to be
-added to the Repro object already exists. Used to avoid duplicate
+added to the `Repro` object already exists. Used to avoid duplicate
 definitions being added to a script.
 
 ## Usage
@@ -14,7 +14,7 @@ is_new_reactive(new, exisitng)
 
 - new, exisitng:
 
-  A named list of reactive variable defintions
+  A named list of reactive variable definitions
 
 ## Value
 
