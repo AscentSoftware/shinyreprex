@@ -3,8 +3,11 @@
 #'
 #' @noRd
 S7::method(repro_call_chunk, class_call_reactval) <- function(x, repro_code = Repro(), env = rlang::caller_env()) {
-  reactive_val <- rlang::eval_bare(x, env = env)
-  eval_call <- rlang::call2("<-", as.symbol(rlang::call_name(x)), reactive_val)
+  reactive_val <- x |>
+    rlang::eval_bare(env = env) |>
+    constructive::construct(one_liner = TRUE) |>
+    _[["code"]]
+  eval_call <- str2lang(paste(rlang::call_name(x), "<-", reactive_val))
 
   repro_code@packages <- get_pkg_name(x)
   repro_code@code <- eval_call
