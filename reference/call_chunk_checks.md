@@ -18,8 +18,11 @@ variable.
 `is_any_reactive_call` checks whether or not the call points to
 evaluating a `reactive`, `reactiveVal` or `reactiveValues`.
 
-`is_input_call` checks whether or not the call points to evaluation an
+`is_input_call` checks whether or not the call points to evaluate an
 input value.
+
+`is_session_user_data` checks whether or not the call points to evaluate
+an object within `session$userData`
 
 ## Usage
 
@@ -33,6 +36,8 @@ is_reactive_values_call(x, env = rlang::caller_env())
 is_any_reactive_call(x, env = rlang::caller_env())
 
 is_input_call(x)
+
+is_session_user_data(x)
 ```
 
 ## Arguments

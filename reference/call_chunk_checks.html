@@ -9,7 +9,9 @@ is_reactive_values_call checks whether or not the call is evaluating an item
 within a reactiveValues variable.
 is_any_reactive_call checks whether or not the call points to evaluating a
 reactive, reactiveVal or reactiveValues.
-is_input_call checks whether or not the call points to evaluation an input value."><meta property="og:description" content="A set of helper functions that determine what type of call is being made within
+is_input_call checks whether or not the call points to evaluate an input value.
+is_session_user_data checks whether or not the call points to evaluate an object
+within session$userData"><meta property="og:description" content="A set of helper functions that determine what type of call is being made within
 an expression.
 is_reactive_call checks whether or not the call is evaluating a
 reactive variable.
@@ -19,7 +21,9 @@ is_reactive_values_call checks whether or not the call is evaluating an item
 within a reactiveValues variable.
 is_any_reactive_call checks whether or not the call points to evaluating a
 reactive, reactiveVal or reactiveValues.
-is_input_call checks whether or not the call points to evaluation an input value."></head><body>
+is_input_call checks whether or not the call points to evaluate an input value.
+is_session_user_data checks whether or not the call points to evaluate an object
+within session$userData"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -65,7 +69,9 @@ an expression.</p>
 within a <code><a href="https://rdrr.io/pkg/shiny/man/reactiveValues.html" class="external-link">reactiveValues</a></code> variable.</p>
 <p><code>is_any_reactive_call</code> checks whether or not the call points to evaluating a
 <code>reactive</code>, <code>reactiveVal</code> or <code>reactiveValues</code>.</p>
-<p><code>is_input_call</code> checks whether or not the call points to evaluation an input value.</p>
+<p><code>is_input_call</code> checks whether or not the call points to evaluate an input value.</p>
+<p><code>is_session_user_data</code> checks whether or not the call points to evaluate an object
+within <code>session$userData</code></p>
     </div>
 
     <div class="section level2">
@@ -78,7 +84,9 @@ within a <code><a href="https://rdrr.io/pkg/shiny/man/reactiveValues.html" class
 <span></span>
 <span><span class="fu">is_any_reactive_call</span><span class="op">(</span><span class="va">x</span>, env <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">is_input_call</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">is_input_call</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_session_user_data</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
