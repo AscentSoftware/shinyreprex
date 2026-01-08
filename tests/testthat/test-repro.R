@@ -134,3 +134,39 @@ test_that("When one non-standard package is used, it is added to the top of the 
     }
   )
 })
+
+test_that("Able to reproduce a reactive using the session user data", {
+  test_server <- function(input, output, session) {
+    iris_filt <- reactive(iris[with(iris, Sepal.Width > session$userData$min_width), ])
+
+    summary_tbl <- reactive({
+      aggregate(
+        Sepal.Width ~ Species,
+        data = iris_filt(),
+        FUN = get(input$summary_fn)
+      )
+    })
+  }
+
+  session <- shiny::MockShinySession$new()
+  session$userData$min_width <- 3.5
+
+  shiny::testServer(
+    test_server,
+    session = session,
+    expr = {
+      session$setInputs(summary_fn = "median")
+
+      repro_code <- repro(summary_tbl)
+      expect_identical(
+        repro_code,
+        paste(
+          "iris_filt <- iris[with(iris, Sepal.Width > 3.5), ]",
+          "",
+          "aggregate(Sepal.Width ~ Species, data = iris_filt, FUN = get(\"median\"))",
+          sep = "\n"
+        )
+      )
+    }
+  )
+})

@@ -10,7 +10,7 @@
 #' @include repro_call_chunk.R
 #' @noRd
 S7::method(repro_call_chunk, class_call_subset) <- function(x, repro_code = Repro(), env = rlang::caller_env()) {
-  if (is_input_call(x)) {
+  if (is_input_call(x) || is_session_user_data(x)) {
     eval_call <- str2lang(construct_reactive(x, env = env))
   } else if (is_reactive_values_call(x, env)) {
     reactive_val <- construct_reactive(x, env = env)

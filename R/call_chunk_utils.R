@@ -54,12 +54,22 @@ is_any_reactive_call <- function(x, env = rlang::caller_env()) {
 }
 
 #' @description
-#' `is_input_call` checks whether or not the call points to evaluation an input value.
+#' `is_input_call` checks whether or not the call points to evaluate an input value.
 #'
 #' @rdname call_chunk_checks
 is_input_call <- function(x) {
   rlang::is_call(x, "$") &&
-    identical(as.character(x[[2]]), "input")
+    startsWith(as.character(x)[[2]], "input")
+}
+
+#' @description
+#' `is_session_user_data` checks whether or not the call points to evaluate an object
+#' within `session$userData`
+#'
+#' @rdname call_chunk_checks
+is_session_user_data <- function(x) {
+  rlang::is_call(x, "$") &&
+    startsWith(as.character(x)[[2]], "session$userData")
 }
 
 #' Assign Reactive Call

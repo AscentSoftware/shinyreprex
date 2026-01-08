@@ -6,6 +6,7 @@
 \alias{is_reactive_values_call}
 \alias{is_any_reactive_call}
 \alias{is_input_call}
+\alias{is_session_user_data}
 \title{Call Checks}
 \usage{
 is_reactive_call(x, env = rlang::caller_env())
@@ -17,6 +18,8 @@ is_reactive_values_call(x, env = rlang::caller_env())
 is_any_reactive_call(x, env = rlang::caller_env())
 
 is_input_call(x)
+
+is_session_user_data(x)
 }
 \arguments{
 \item{x}{An R call object}
@@ -44,6 +47,9 @@ within a \code{\link[shiny]{reactiveValues}} variable.
 \code{is_any_reactive_call} checks whether or not the call points to evaluating a
 \code{reactive}, \code{reactiveVal} or \code{reactiveValues}.
 
-\code{is_input_call} checks whether or not the call points to evaluation an input value.
+\code{is_input_call} checks whether or not the call points to evaluate an input value.
+
+\code{is_session_user_data} checks whether or not the call points to evaluate an object
+within \code{session$userData}
 }
 \keyword{internal}
