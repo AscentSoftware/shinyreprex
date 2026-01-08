@@ -30,9 +30,10 @@ test_that("Repro object can be created with pre-defined code", {
   expect_identical(new_repro@code, my_code)
   expect_identical(new_repro@packages, character())
   expect_identical(new_repro@prerequisites, my_prereqs)
-  expect_identical(new_repro@script, "y <- 100\nx <- 42\nmy_var <- x + y")
+  expect_identical(new_repro@script, "y <- 100\n\nx <- 42\nmy_var <- x + y")
 
   new_repro@calls |>
+    purrr::discard(identical, y = "") |>
     purrr::map(rlang::parse_expr) |>
     purrr::walk(rlang::eval_bare, env = environment())
   expect_identical(my_var, 142)

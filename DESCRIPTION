@@ -11,7 +11,7 @@ License: MIT + file LICENSE
 URL: https://github.com/AscentSoftware/shinyrepro, https://jubilant-dollop-5lekoky.pages.github.io
 BugReports: https://github.com/AscentSoftware/shinyrepro/issues
 Depends:
-    R (>= 4.1.0)
+    R (>= 4.3.0)
 Imports:
     S7,
     constructive,

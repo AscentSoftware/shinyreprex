@@ -74,6 +74,7 @@ test_that("Able to reproduce a reactive stemming from another reactive", {
         repro_code,
         paste(
           "iris_filt <- iris[with(iris, Sepal.Width > 3.5), ]",
+          "",
           "aggregate(Sepal.Width ~ Species, data = iris_filt, FUN = get(\"median\"))",
           sep = "\n"
         )
@@ -114,6 +115,7 @@ test_that("When one non-standard package is used, it is added to the top of the 
           "library(purrr)",
           "",
           "iris_filt <- iris[with(iris, Sepal.Width > 3.5), ]",
+          "",
           "purrr::map(",
           "  head(names(iris), 4),",
           "  dat = iris_filt,",

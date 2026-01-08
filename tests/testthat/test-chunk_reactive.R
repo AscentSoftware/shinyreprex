@@ -59,6 +59,7 @@ test_that("Able to extract reactive expression code from a standard reactive", {
         repro_code,
         paste(
           "iris_filt <- iris[with(iris, Sepal.Width > 3.5), ]",
+          "",
           "aggregate(Sepal.Width ~ Species, data = iris_filt, FUN = get(\"median\"))",
           sep = "\n"
         )
@@ -92,6 +93,7 @@ test_that("Able to extract reactive expression code from bindCache", {
         repro_code,
         paste(
           "iris_filt <- iris[with(iris, Sepal.Width > 3.5), ]",
+          "",
           "aggregate(Sepal.Width ~ Species, data = iris_filt, FUN = get(\"median\"))",
           sep = "\n"
         )
@@ -125,6 +127,7 @@ test_that("Able to extract reactive expression code from bindEvent", {
         repro_code,
         paste(
           "iris_filt <- iris[with(iris, Sepal.Width > 3.5), ]",
+          "",
           "aggregate(Sepal.Width ~ Species, data = iris_filt, FUN = get(\"median\"))",
           sep = "\n"
         )
@@ -160,6 +163,7 @@ test_that("Able to extract reactive expression code from bindEvent and bindCache
         repro_code,
         paste(
           "iris_filt <- iris[with(iris, Sepal.Width > 3.5), ]",
+          "",
           "aggregate(Sepal.Width ~ Species, data = iris_filt, FUN = get(\"median\"))",
           sep = "\n"
         )
@@ -193,6 +197,7 @@ test_that("Able to extract reactive expression code from eventReactive", {
         repro_code,
         paste(
           "iris_filt <- iris[with(iris, Sepal.Width > 3.5), ]",
+          "",
           "aggregate(Sepal.Width ~ Species, data = iris_filt, FUN = get(\"median\"))",
           sep = "\n"
         )

@@ -65,6 +65,7 @@ Repro <- S7::new_class(
         prereq_calls <- self@prerequisites |>
           unlist(recursive = FALSE, use.names = FALSE) |>
           purrr::map(constructive::deparse_call) |>
+          purrr::map(c, "") |>
           unlist()
 
         code_calls <- self@code |>
