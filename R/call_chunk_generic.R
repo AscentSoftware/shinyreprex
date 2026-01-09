@@ -6,9 +6,26 @@
 #' @noRd
 S7::method(repro_call_chunk, S7::class_any) <- function(x, repro_code = Repro(), env = rlang::caller_env()) {
   x_args <- x |> unclass() |> rlang::call_args()
-  reactive_calls <- vapply(x_args, is_any_reactive_call, env = env, logical(1L))
+
   repro_args <- lapply(x_args, \(y) repro_chunk(y, env = env))
   eval_args <- purrr::map(repro_args, "code") |> unlist(recursive = FALSE)
+
+  reactive_calls <- vapply(x_args, is_any_reactive_call, env = env, logical(1L))
+  variable_calls <- vapply(x_args, is_variable_call, env = env, logical(1L))
+
+  if (any(variable_calls)) {
+    pre_variable_calls <- unname(repro_args[variable_calls])
+    pre_variable_args <- purrr::map(pre_variable_calls, \(x) x@code[[1L]])
+
+    pre_variable_assignments <- purrr::map(
+      pre_variable_args,
+      env = env,
+      \(x, env) str2lang(paste(x, "<-", construct_reactive(x, env)))
+    )
+    repro_code@prerequisites <- purrr::set_names(pre_variable_assignments, pre_variable_args)
+
+    eval_args[variable_calls] <- pre_variable_args
+  }
 
   if (any(reactive_calls)) {
     pre_reactive_calls <- unname(repro_args[reactive_calls])

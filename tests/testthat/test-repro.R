@@ -170,3 +170,96 @@ test_that("Able to reproduce a reactive using the session user data", {
     }
   )
 })
+
+test_that("Able to reproduce a reactive without printing the environment variable in reactive", {
+  test_server <- function(input, output, session) {
+    dummy_fn <- "median"
+
+    summary_tbl <- reactive({
+      aggregate(
+        Sepal.Width ~ Species,
+        data = iris,
+        FUN = get(dummy_fn)
+      )
+    })
+  }
+
+  shiny::testServer(
+    test_server,
+    expr = {
+      repro_code <- repro(summary_tbl)
+      expect_identical(
+        repro_code,
+        paste(
+          "dummy_fn <- \"median\"",
+          "",
+          "aggregate(Sepal.Width ~ Species, data = iris, FUN = get(dummy_fn))",
+          sep = "\n"
+        )
+      )
+    }
+  )
+})
+
+test_that("Able to reproduce a complex reactive without printing the environment variable in reactive", {
+  test_server <- function(input, output, session) {
+    dummy_data <- iris
+
+    summary_tbl <- reactive({
+      aggregate(
+        Sepal.Width ~ Species,
+        data = dummy_data,
+        FUN = mean
+      )
+    })
+  }
+
+  iris_repro <- paste("dummy_data <-", constructive::construct(iris, one_liner = TRUE)$code) |>
+    str2lang() |>
+    constructive::deparse_call() |>
+    paste(collapse = "\n")
+
+  shiny::testServer(
+    test_server,
+    expr = {
+      repro_code <- repro(summary_tbl)
+      expect_identical(
+        repro_code,
+        paste(
+          iris_repro,
+          "",
+          "aggregate(Sepal.Width ~ Species, data = dummy_data, FUN = mean)",
+          sep = "\n"
+        )
+      )
+    }
+  )
+})
+
+test_that("Able to reproduce a reactive without printing the environment variable in reactive", {
+  test_server <- function(input, output, session) {
+    summary_tbl <- reactive({
+      aggregate(
+        Sepal.Width ~ Species,
+        data = iris,
+        FUN = get(Sys.getenv("DUMMY_FN"))
+      )
+    })
+  }
+
+  Sys.setenv(DUMMY_FN = "median")
+  on.exit(Sys.unsetenv("DUMMY_FN"), add = TRUE)
+
+  shiny::testServer(
+    test_server,
+    expr = {
+      session$setInputs(summary_fn = "median")
+
+      repro_code <- repro(summary_tbl)
+      expect_identical(
+        repro_code,
+        "aggregate(Sepal.Width ~ Species, data = iris, FUN = get(Sys.getenv(\"DUMMY_FN\")))"
+      )
+    }
+  )
+})
