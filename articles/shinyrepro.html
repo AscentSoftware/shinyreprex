@@ -63,21 +63,53 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AscentSoftware/shinyrepro" class="external-link">shinyrepro</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="using-shinyrepro">Using shinyrepro<a class="anchor" aria-label="anchor" href="#using-shinyrepro"></a>
 </h2>
-<p>There is a single exported function, <code>repro</code>, that will
-take a reactive object, and returns a character vector of the code
-required to run outside of Shiny to re-create the specified
-reactive.</p>
+<p>There is a single exported function, <code>repro</code>, that takes a
+reactive object and converts it into a script that can be reused outside
+of the Shiny application to reproduce the result of the reactive. This
+can be sent to a simple <code>verbatimTextOutput</code> or something
+more UX friendly such as the {highlighter} package to display the script
+in the UI.</p>
 </div>
 <div class="section level2">
 <h2 id="best-practices">Best Practices<a class="anchor" aria-label="anchor" href="#best-practices"></a>
 </h2>
 <div class="section level3">
-<h3 id="business-logic-package">Business Logic Package<a class="anchor" aria-label="anchor" href="#business-logic-package"></a>
+<h3 id="put-side-effects-in-observers">Put Side-Effects in Observers<a class="anchor" aria-label="anchor" href="#put-side-effects-in-observers"></a>
+</h3>
+<p>This is general best-practice when developing Shiny applications, but
+avoid putting code for its side effects in <code>reactive</code>
+expressions, and instead create smaller reactive calls, and have
+observers running the code not intended for reproducing outputs.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Good</span></span>
+<span><span class="va">width_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">iris_filt</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">filter</span><span class="op">(</span><span class="va">iris</span>, <span class="va">Species</span> <span class="op">==</span> <span class="st">"versicolor"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">iris_filt</span><span class="op">$</span><span class="va">Petal.Width</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSliderInput.html" class="external-link">updateSliderInput</a></span><span class="op">(</span><span class="st">"width"</span>, <span class="fu">width_range</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Bad</span></span>
+<span><span class="va">width_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">iris_filt</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">filter</span><span class="op">(</span><span class="va">iris</span>, <span class="va">Species</span> <span class="op">==</span> <span class="st">"versicolor"</span><span class="op">)</span></span>
+<span>  <span class="va">widths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">iris_filt</span><span class="op">$</span><span class="va">Petal.Width</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSliderInput.html" class="external-link">updateSliderInput</a></span><span class="op">(</span><span class="st">"width"</span>, <span class="va">widths</span><span class="op">)</span></span>
+<span>  <span class="va">widths</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">summary_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">iris_filt</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">filter</span><span class="op">(</span><span class="va">iris</span>, <span class="va">Species</span> <span class="op">==</span> <span class="st">"versicolor"</span><span class="op">)</span></span>
+<span>  <span class="fu">shinyjs</span><span class="fu">::</span><span class="fu">toggle</span><span class="op">(</span><span class="st">"table"</span>, condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">iris_filt</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0L</span><span class="op">)</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">summarise</span><span class="op">(</span><span class="va">iris_filt</span>, <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">across</span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="create-a-business-logic-package">Create a Business Logic Package<a class="anchor" aria-label="anchor" href="#create-a-business-logic-package"></a>
 </h3>
 <p>So that developers can easily recreate outputs generated in Shiny
 applications, add any business logic, such as ETL, data manipulation and
@@ -85,12 +117,8 @@ modelling, to a separate package. This will allow users to recreate the
 tables and plots generated in the app without having to install all the
 packages associated with the application.</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
-</h2>
 <div class="section level3">
-<h3 id="secrets">Secrets<a class="anchor" aria-label="anchor" href="#secrets"></a>
+<h3 id="use-secrets-in-reactives">Use Secrets in Reactives<a class="anchor" aria-label="anchor" href="#use-secrets-in-reactives"></a>
 </h3>
 <p>If you are using secrets, such as environment variables, make sure
 that they are defined within a reactive expression. If it is defined in

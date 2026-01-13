@@ -1,7 +1,10 @@
 # shinyrepro
 
-The aim of **shinyrepro** is to be able to recreate any output that is
-available in a Shiny application outside of said application.
+## Overview
+
+The aim of **shinyrepro** is to be able to recreate any reactive or
+output that is available in a Shiny application outside of said
+application.
 
 In static documents, like Quarto, it is easy to include the code chunk
 by including code folding. Due to the interactiveness of Shiny, this
@@ -20,15 +23,10 @@ remotes::install_github("AscentSoftware/shinyrepro")
 
 ## Usage
 
-{shinyrepro} has one exported function,
-[`repro()`](https://jubilant-dollop-5lekoky.pages.github.io/reference/repro.md),
-that takes a reactive object and converts it into a script that can be
-reused outside of the Shiny application to reproduce the result of the
-reactive. This can be sent to a simple `verbatimTextOutput` or something
-more UX friendly such as the {highlighter} package to display the script
-in the UI.
-
-### Example
+The following examples takes a couple of inputs, and uses one of them in
+one reactive, and the other in another reactive. The second reactive is
+a table output, which can be passed to `repro` to re-create the code
+that generates the table seen in the UI.
 
 ``` r
 library(shiny)
