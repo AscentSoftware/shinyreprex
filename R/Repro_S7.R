@@ -66,11 +66,11 @@ Repro <- S7::new_class(
           unlist(recursive = FALSE, use.names = FALSE) |>
           purrr::map(constructive::deparse_call) |>
           purrr::map(c, "") |>
-          unlist()
+          unlist(use.names = FALSE)
 
         code_calls <- self@code |>
           purrr::map(constructive::deparse_call) |>
-          unlist()
+          unlist(use.names = FALSE)
 
         c(pkg_calls, prereq_calls, code_calls)
       }

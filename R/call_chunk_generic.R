@@ -5,6 +5,8 @@
 #'
 #' @noRd
 S7::method(repro_call_chunk, S7::class_any) <- function(x, repro_code = Repro(), env = rlang::caller_env()) {
+  stopifnot("Object passed to repro_call_chunk must be a call" = is.call(x))
+
   x_args <- x |> unclass() |> rlang::call_args()
 
   repro_args <- lapply(x_args, \(y) repro_chunk(y, env = env))
