@@ -56,6 +56,10 @@ is_any_reactive_call <- function(x, env = rlang::caller_env()) {
 #' @description
 #' `is_variable_call` checks whether or not the call point to a variable that is defined
 #' within the given module.
+#'
+#' @param existing_vars A character vector of variable definitions that exist in the `Repro` object
+#'
+#' @rdname call_chunk_checks
 is_variable_call <- function(x, existing_vars = NULL, env = rlang::caller_env()) {
   is.name(x) &&
     (as.character(x) %in% names(env) || as.character(x) %in% names(parent.env(env))) &&
