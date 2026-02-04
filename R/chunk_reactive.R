@@ -4,6 +4,17 @@
 #' For that, some diving into the internals of the observable object is required to
 #' get the specific environment, before generating the repro code.
 #'
+#' ## Environments
+#' The `Observable` object attached to the given reactive is extracted. Within the
+#' `Observable`, the `.origFunc` contains the environment that the reactive expression
+#' was created - the parent environment being the module that the reactive is assigned
+#' in. This allows the variables in the module to be found and set as pre-requisites
+#' for the given reactive.
+#'
+#' If `bindCache` or `bindEvent` are used, then the environment found is the call within
+#' the relevant function. To get to the module environment, we find that the `reactive`
+#' is assigned as "`wrappedFunc`", so that is used to find the module environment.
+#'
 #' @include repro_chunk.R
 #' @noRd
 S7::method(repro_chunk, class_reactive) <- function(x, repro_code = Repro(), env = rlang::caller_env()) {
