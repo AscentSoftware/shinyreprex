@@ -1,8 +1,8 @@
 ---
-title: "Introduction to shinyrepro"
+title: "Introduction to shinyreprex"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to shinyrepro}
+  %\VignetteIndexEntry{Introduction to shinyreprex}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -13,10 +13,10 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library(shinyrepro)
+library(shinyreprex)
 ```
 
-## Using shinyrepro
+## Using shinyreprex
 
 There is a single exported function, `repro`, that takes a reactive object and converts it 
 into a script that can be reused outside of the Shiny application to reproduce the result 

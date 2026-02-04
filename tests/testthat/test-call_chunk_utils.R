@@ -4,7 +4,7 @@ test_that("Able to extract package name from pkg::fn call", {
 })
 
 test_that("Able to extract package name from unnamespaced function call", {
-  expect_identical(get_pkg_name(str2lang("repro_chunk('foo')")), "shinyrepro")
+  expect_identical(get_pkg_name(str2lang("repro_chunk('foo')")), "shinyreprex")
 })
 
 test_that("When extract package from function call, base R packages are ignored", {

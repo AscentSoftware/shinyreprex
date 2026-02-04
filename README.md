@@ -1,12 +1,12 @@
-# shinyrepro
+# shinyreprex
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/AscentSoftware/shinyrepro/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AscentSoftware/shinyrepro/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ## Overview
 
-The aim of **shinyrepro** is to be able to recreate any reactive or output that is available in 
+The aim of **shinyreprex** is to be able to recreate any reactive or output that is available in 
 a Shiny application outside of said application.
 
 In static documents, like Quarto, it is easy to include the code chunk by including code folding. 
@@ -16,11 +16,11 @@ environment outside of Shiny.
 
 ## Installation
 
-To get the latest version of shinyrepro, install from GitHub:
+To get the latest version of shinyreprex, install from GitHub:
 
 ```r
 require(remotes)
-remotes::install_github("AscentSoftware/shinyrepro")
+remotes::install_github("AscentSoftware/shinyreprex")
 ```
 
 ## Usage
@@ -31,7 +31,7 @@ the code that generates the table seen in the UI.
 
 ```r
 library(shiny)
-library(shinyrepro)
+library(shinyreprex)
 
 ui <- fluidPage(
   h1("Reproducible Code Example"),
