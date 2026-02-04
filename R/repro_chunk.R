@@ -8,7 +8,7 @@
 #' @param x [shiny::reactive()] object to make reproducible
 #' @param repro_code A `Repro` object to store calls found in `x`. By default it is
 #' empty, but if `x` is not the first call within an expression, this will have
-#' prior calls and pre-requesites that might be used in `x`.
+#' prior calls and pre-requisites that might be used in `x`.
 #' @param env The environment `x` is defined in. By default it is the environment of where
 #' `repro` is called
 #'

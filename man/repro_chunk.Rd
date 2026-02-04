@@ -11,7 +11,7 @@ repro_chunk(x, repro_code = Repro(), env = rlang::caller_env())
 
 \item{repro_code}{A \code{Repro} object to store calls found in \code{x}. By default it is
 empty, but if \code{x} is not the first call within an expression, this will have
-prior calls and pre-requesites that might be used in \code{x}.}
+prior calls and pre-requisites that might be used in \code{x}.}
 
 \item{env}{The environment \code{x} is defined in. By default it is the environment of where
 \code{repro} is called}
