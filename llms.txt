@@ -32,8 +32,6 @@ that generates the table seen in the UI.
 library(shiny)
 library(shinyrepro)
 
-library(shiny)
-
 ui <- fluidPage(
   h1("Reproducible Code Example"),
   inputPanel(
@@ -93,7 +91,7 @@ shinyApp(ui, server)
 
 ## All functions
 
-- [`repro()`](https://jubilant-dollop-5lekoky.pages.github.io/reference/repro.md)
+- [`repro()`](https://ascentsoftware.github.io/shinyrepro/reference/repro.md)
   : Reproduce Code
 
 # Articles
@@ -101,4 +99,4 @@ shinyApp(ui, server)
 ### All vignettes
 
 - [Introduction to
-  shinyrepro](https://jubilant-dollop-5lekoky.pages.github.io/articles/shinyrepro.md):
+  shinyrepro](https://ascentsoftware.github.io/shinyrepro/articles/shinyrepro.md):

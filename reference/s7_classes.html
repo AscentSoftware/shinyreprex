@@ -8,13 +8,13 @@ These variables need to be handled in a specific way to extract non-static value
 stored in reactive calls.
 
 class_reactive
-The class capturing reactive calls
+The class capturing shiny::reactive() calls
 
 class_event_cache
-The class capturing bindCache calls
+The class capturing shiny::bindCache() calls
 
 class_event_reactive
-The class capturing bindEvent calls
+The class capturing shiny::bindEvent() calls
 
 class_bind_reactive
 The union of class_event_cache and class_event_reactive
@@ -35,10 +35,10 @@ class_call_function
 The class capturing anonymous function definitions
 
 class_call_reactive
-The class capturing evaluated reactive objects
+The class capturing evaluated shiny::reactive() objects
 
 class_call_reactval
-The class capturing evaluated reactiveValues objects
+The class capturing evaluated shiny::reactiveValues() objects
 
 class_call_if
 The class capturing if calls
@@ -48,7 +48,7 @@ The class capturing undefined calls, such as pkg::fn
 
 class_call_shiny
 The class capturing ignorable shiny function calls such as
-req and validate
+shiny::req() and shiny::validate()
 
 class_call_subset
 The class capturing a subset ($) call
@@ -66,13 +66,13 @@ These variables need to be handled in a specific way to extract non-static value
 stored in reactive calls.
 
 class_reactive
-The class capturing reactive calls
+The class capturing shiny::reactive() calls
 
 class_event_cache
-The class capturing bindCache calls
+The class capturing shiny::bindCache() calls
 
 class_event_reactive
-The class capturing bindEvent calls
+The class capturing shiny::bindEvent() calls
 
 class_bind_reactive
 The union of class_event_cache and class_event_reactive
@@ -93,10 +93,10 @@ class_call_function
 The class capturing anonymous function definitions
 
 class_call_reactive
-The class capturing evaluated reactive objects
+The class capturing evaluated shiny::reactive() objects
 
 class_call_reactval
-The class capturing evaluated reactiveValues objects
+The class capturing evaluated shiny::reactiveValues() objects
 
 class_call_if
 The class capturing if calls
@@ -106,7 +106,7 @@ The class capturing undefined calls, such as pkg::fn
 
 class_call_shiny
 The class capturing ignorable shiny function calls such as
-req and validate
+shiny::req() and shiny::validate()
 
 class_call_subset
 The class capturing a subset ($) call
@@ -159,13 +159,13 @@ The class capturing a subset ($) call
 <p>These variables need to be handled in a specific way to extract non-static values
 stored in reactive calls.</p>
 <dl><dt>class_reactive</dt>
-<dd><p>The class capturing <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></code> calls</p></dd>
+<dd><p>The class capturing <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">shiny::reactive()</a></code> calls</p></dd>
 
 <dt>class_event_cache</dt>
-<dd><p>The class capturing <code><a href="https://rdrr.io/pkg/shiny/man/bindCache.html" class="external-link">bindCache</a></code> calls</p></dd>
+<dd><p>The class capturing <code><a href="https://rdrr.io/pkg/shiny/man/bindCache.html" class="external-link">shiny::bindCache()</a></code> calls</p></dd>
 
 <dt>class_event_reactive</dt>
-<dd><p>The class capturing <code><a href="https://rdrr.io/pkg/shiny/man/bindEvent.html" class="external-link">bindEvent</a></code> calls</p></dd>
+<dd><p>The class capturing <code><a href="https://rdrr.io/pkg/shiny/man/bindEvent.html" class="external-link">shiny::bindEvent()</a></code> calls</p></dd>
 
 <dt>class_bind_reactive</dt>
 <dd><p>The union of <code>class_event_cache</code> and <code>class_event_reactive</code></p></dd>
@@ -183,10 +183,10 @@ chunk, these are special cases that need to be handled in a non-standard way.</p
 <dd><p>The class capturing anonymous function definitions</p></dd>
 
 <dt>class_call_reactive</dt>
-<dd><p>The class capturing evaluated <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></code> objects</p></dd>
+<dd><p>The class capturing evaluated <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">shiny::reactive()</a></code> objects</p></dd>
 
 <dt>class_call_reactval</dt>
-<dd><p>The class capturing evaluated <code><a href="https://rdrr.io/pkg/shiny/man/reactiveValues.html" class="external-link">reactiveValues</a></code> objects</p></dd>
+<dd><p>The class capturing evaluated <code><a href="https://rdrr.io/pkg/shiny/man/reactiveValues.html" class="external-link">shiny::reactiveValues()</a></code> objects</p></dd>
 
 <dt>class_call_if</dt>
 <dd><p>The class capturing <code>if</code> calls</p></dd>
@@ -196,7 +196,7 @@ chunk, these are special cases that need to be handled in a non-standard way.</p
 
 <dt>class_call_shiny</dt>
 <dd><p>The class capturing ignorable shiny function calls such as
-<code><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></code> and <code><a href="https://rdrr.io/pkg/shiny/man/validate.html" class="external-link">validate</a></code></p></dd>
+<code><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">shiny::req()</a></code> and <code><a href="https://rdrr.io/pkg/shiny/man/validate.html" class="external-link">shiny::validate()</a></code></p></dd>
 
 <dt>class_call_subset</dt>
 <dd><p>The class capturing a subset (<code>$</code>) call</p></dd>

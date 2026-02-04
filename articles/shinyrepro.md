@@ -6,7 +6,8 @@ There is a single exported function, `repro`, that takes a reactive
 object and converts it into a script that can be reused outside of the
 Shiny application to reproduce the result of the reactive. This can be
 sent to a simple `verbatimTextOutput` or something more UX friendly such
-as the {highlighter} package to display the script in the UI.
+as the [highlighter](https://federiva.github.io/highlighter/) package to
+display the script in the UI.
 
 ## Best Practices
 

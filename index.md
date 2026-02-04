@@ -32,8 +32,6 @@ that generates the table seen in the UI.
 library(shiny)
 library(shinyrepro)
 
-library(shiny)
-
 ui <- fluidPage(
   h1("Reproducible Code Example"),
   inputPanel(

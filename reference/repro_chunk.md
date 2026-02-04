@@ -14,12 +14,14 @@ repro_chunk(x, repro_code = Repro(), env = rlang::caller_env())
 
 - x:
 
-  [`reactive`](https://rdrr.io/pkg/shiny/man/reactive.html) object to
-  make reproducible
+  [`shiny::reactive()`](https://rdrr.io/pkg/shiny/man/reactive.html)
+  object to make reproducible
 
 - repro_code:
 
-  A `Repro` object to
+  A `Repro` object to store calls found in `x`. By default it is empty,
+  but if `x` is not the first call within an expression, this will have
+  prior calls and pre-requesites that might be used in `x`.
 
 - env:
 
@@ -28,10 +30,8 @@ repro_chunk(x, repro_code = Repro(), env = rlang::caller_env())
 
 ## Value
 
-A
-[`Repro`](https://jubilant-dollop-5lekoky.pages.github.io/reference/repro_s7.md)
-object containing all the necessary code and packages to recreate the
-provided expression when evaluated.
+A `Repro` object containing all the necessary code and packages to
+recreate the provided expression when evaluated.
 
 ## Details
 

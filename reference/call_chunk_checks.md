@@ -4,15 +4,16 @@ A set of helper functions that determine what type of call is being made
 within an expression.
 
 `is_reactive_call` checks whether or not the call is evaluating a
-[`reactive`](https://rdrr.io/pkg/shiny/man/reactive.html) variable.
+[`shiny::reactive`](https://rdrr.io/pkg/shiny/man/reactive.html)
+variable.
 
 `is_reactive_val_call` checks whether or not the call is evaluating a
-[`reactiveVal`](https://rdrr.io/pkg/shiny/man/reactiveVal.html)
+[`shiny::reactiveVal`](https://rdrr.io/pkg/shiny/man/reactiveVal.html)
 variable.
 
 `is_reactive_values_call` checks whether or not the call is evaluating
 an item within a
-[`reactiveValues`](https://rdrr.io/pkg/shiny/man/reactiveValues.html)
+[`shiny::reactiveValues`](https://rdrr.io/pkg/shiny/man/reactiveValues.html)
 variable.
 
 `is_any_reactive_call` checks whether or not the call points to

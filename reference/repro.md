@@ -1,8 +1,8 @@
 # Reproduce Code
 
 Construct the code within a given
-[`reactive`](https://rdrr.io/pkg/shiny/man/reactive.html) object to be
-able to re-create the output outside of a Shiny session.
+[`shiny::reactive`](https://rdrr.io/pkg/shiny/man/reactive.html) object
+to be able to re-create the output outside of a Shiny session.
 
 ## Usage
 
@@ -14,14 +14,14 @@ repro(x)
 
 - x:
 
-  [`reactive`](https://rdrr.io/pkg/shiny/man/reactive.html) object to
-  make reproducible
+  [`shiny::reactive`](https://rdrr.io/pkg/shiny/man/reactive.html)
+  object to make reproducible
 
 ## Value
 
 A character string, that when printed (using
-[`cat`](https://rdrr.io/r/base/cat.html)), displays the script that
-reproduces the contents of `x`.
+[`base::cat`](https://rdrr.io/r/base/cat.html)), displays the script
+that reproduces the contents of `x`.
 
 ## Examples
 

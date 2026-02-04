@@ -54,11 +54,13 @@ them.</p>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p><code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></code> object to make reproducible</p></dd>
+<dd><p><code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">shiny::reactive()</a></code> object to make reproducible</p></dd>
 
 
 <dt id="arg-repro-code">repro_code<a class="anchor" aria-label="anchor" href="#arg-repro-code"></a></dt>
-<dd><p>A <code>Repro</code> object to</p></dd>
+<dd><p>A <code>Repro</code> object to store calls found in <code>x</code>. By default it is
+empty, but if <code>x</code> is not the first call within an expression, this will have
+prior calls and pre-requesites that might be used in <code>x</code>.</p></dd>
 
 
 <dt id="arg-env">env<a class="anchor" aria-label="anchor" href="#arg-env"></a></dt>
@@ -68,7 +70,7 @@ them.</p>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code><a href="repro_s7.html">Repro</a></code> object containing all the necessary code and packages to recreate
+    <p>A <code>Repro</code> object containing all the necessary code and packages to recreate
 the provided expression when evaluated.</p>
     </div>
     <div class="section level2">

@@ -11,17 +11,20 @@ non-static values stored in reactive calls.
 - class_reactive:
 
   The class capturing
-  [`reactive`](https://rdrr.io/pkg/shiny/man/reactive.html) calls
+  [`shiny::reactive()`](https://rdrr.io/pkg/shiny/man/reactive.html)
+  calls
 
 - class_event_cache:
 
   The class capturing
-  [`bindCache`](https://rdrr.io/pkg/shiny/man/bindCache.html) calls
+  [`shiny::bindCache()`](https://rdrr.io/pkg/shiny/man/bindCache.html)
+  calls
 
 - class_event_reactive:
 
   The class capturing
-  [`bindEvent`](https://rdrr.io/pkg/shiny/man/bindEvent.html) calls
+  [`shiny::bindEvent()`](https://rdrr.io/pkg/shiny/man/bindEvent.html)
+  calls
 
 - class_bind_reactive:
 
@@ -40,12 +43,13 @@ in a non-standard way.
 - class_call_reactive:
 
   The class capturing evaluated
-  [`reactive`](https://rdrr.io/pkg/shiny/man/reactive.html) objects
+  [`shiny::reactive()`](https://rdrr.io/pkg/shiny/man/reactive.html)
+  objects
 
 - class_call_reactval:
 
   The class capturing evaluated
-  [`reactiveValues`](https://rdrr.io/pkg/shiny/man/reactiveValues.html)
+  [`shiny::reactiveValues()`](https://rdrr.io/pkg/shiny/man/reactiveValues.html)
   objects
 
 - class_call_if:
@@ -59,8 +63,8 @@ in a non-standard way.
 - class_call_shiny:
 
   The class capturing ignorable shiny function calls such as
-  [`req`](https://rdrr.io/pkg/shiny/man/req.html) and
-  [`validate`](https://rdrr.io/pkg/shiny/man/validate.html)
+  [`shiny::req()`](https://rdrr.io/pkg/shiny/man/req.html) and
+  [`shiny::validate()`](https://rdrr.io/pkg/shiny/man/validate.html)
 
 - class_call_subset:
 
