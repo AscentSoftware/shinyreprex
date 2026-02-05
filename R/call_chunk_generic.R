@@ -51,6 +51,7 @@ S7::method(repro_call_chunk, S7::class_any) <- function(x, repro_code = Repro(),
   repro_code@prerequisites <- repro_args[!(reactive_calls | variable_calls)] |>
     purrr::map("prerequisites") |>
     purrr::discard(identical, list()) |>
+    unname() |>
     unlist(recursive = FALSE)
 
   if (rlang::is_call(x[[1]], "::")) pkg <- as.character(x[[1]][[2]]) else pkg <- NULL

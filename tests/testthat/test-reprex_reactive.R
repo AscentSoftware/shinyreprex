@@ -318,3 +318,35 @@ test_that("When a reactive feeds is bound by an event, the reprex only updates w
     }
   )
 })
+
+test_that("Reproducible reactives aren't rendered twice when referenced twice in a reactive", {
+  reactiveTabServer <- function(id) {
+    moduleServer(id, function(input, output, session) {
+      iris_react <- reactive(iris[iris$Species == "versicolor", ])
+
+      table_code <- reactive({
+
+        sum(
+          iris_react()$Sepal.Width,
+          iris_react()$Sepal.Length,
+          na.rm = anyNA(iris_react())
+        )
+
+        widths * lengths
+      })
+
+      table_reprex <- reactive(reprex_reactive(table_code))
+
+      output$code <- shiny::renderText(table_reprex())
+      output$table <- shiny::renderTable(table_code())
+    })
+  }
+
+  shiny::testServer(
+    reactiveTabServer,
+    expr = {
+      expect_match(table_reprex(), "iris_react <-")
+      expect_no_match(table_reprex(), "iris_react <-.*iris_react <-")
+    }
+  )
+})
