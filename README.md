@@ -25,9 +25,9 @@ remotes::install_github("AscentSoftware/shinyreprex")
 
 ## Usage
 
-The following examples takes a couple of inputs, and uses one of them in one reactive, and the other
-in another reactive. The second reactive is a table output, which can be passed to `repro` to re-create
-the code that generates the table seen in the UI.
+The following examples takes a couple of inputs, and uses one of them in one reactive, and the 
+other in another reactive. The second reactive is a table output, which can be passed to 
+`reprex_reactive` to re-create the code that generates the table seen in the UI.
 
 ```r
 library(shiny)

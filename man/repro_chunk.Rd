@@ -14,7 +14,7 @@ empty, but if \code{x} is not the first call within an expression, this will hav
 prior calls and pre-requisites that might be used in \code{x}.}
 
 \item{env}{The environment \code{x} is defined in. By default it is the environment of where
-\code{repro} is called}
+\code{reprex_reactive} is called}
 }
 \value{
 A \code{Repro} object containing all the necessary code and packages to recreate
@@ -27,6 +27,7 @@ them.
 }
 \details{
 Whilst a default is provided to \code{env}, it is unlikely that this is the same environment
-\code{x} is defined in. This allows the top-level \code{repro} call
+\code{x} is defined in. This allows the top-level \code{reprex_reactive} call to pass through
+environments found for calls to other reactives in the chunk.
 }
 \keyword{internal}

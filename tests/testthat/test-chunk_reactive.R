@@ -35,7 +35,7 @@ test_that("Reactive code chunk is correctly extracted", {
   )
 })
 
-# repro reactives ----
+# reprex reactives ----
 test_that("Able to extract reactive expression code from a standard reactive", {
   test_server <- function(input, output, session) {
     iris_filt <- reactive(iris[with(iris, Sepal.Width > input$min_width), ])

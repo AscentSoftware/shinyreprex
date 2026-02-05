@@ -1,4 +1,4 @@
-test_that("When NULL value is parsed from a call, it returns the call in a repro object", {
+test_that("When NULL value is parsed from a call, it returns the call in a Repro object", {
   null_call <- str2lang("datasets::penguins")
   class(null_call) <- c("NULL", class(null_call))
 

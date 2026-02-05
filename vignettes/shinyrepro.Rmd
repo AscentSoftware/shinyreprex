@@ -18,14 +18,14 @@ library(shinyreprex)
 
 ## Using shinyreprex
 
-There is a single exported function, `repro`, that takes a reactive object and converts it 
-into a script that can be reused outside of the Shiny application to reproduce the result 
+There is a single exported function, `reprex_reactive``, that takes a reactive object and converts 
+it into a script that can be reused outside of the Shiny application to reproduce the result 
 of the reactive. This can be sent to a simple `verbatimTextOutput` or something more UX 
 friendly such as the `{highlighter}` package to display the script in the UI.
 
 ## Best Practices
 
-### Bind `repro` call to Event
+### Bind `reprex_reactive` call to Event
 
 The code to reproduce a given reactive will be updated whenever an input or reactive feeding
 into the provided reactive is updated, therefore it is recommended to have the reactive as

@@ -1,4 +1,4 @@
-test_that("When a non-reactive call is passed to repro, error gets returned", {
+test_that("When a non-reactive call is passed to reprex_reactive, error gets returned", {
   test_server <- function(input, output, session) {
     test_reactive <- reactive(input$foo)
   }
@@ -15,7 +15,7 @@ test_that("When a non-reactive call is passed to repro, error gets returned", {
   )
 })
 
-test_that("When a reactive is evaluated into repro, specific error is returned to user", {
+test_that("When a reactive is evaluated into reprex_reactive, specific error is returned to user", {
   test_server <- function(input, output, session) {
     test_reactive <- reactive(input$foo)
   }
@@ -292,7 +292,7 @@ test_that("When reproducing a reactive with multiple dependency reactives, simil
   expect_identical(nrow(reactive_1) * nrow(reactive_2), 64L * 21L)
 })
 
-test_that("When a reactive feeds is bound by an event, the repro only updates when the reactive updates", {
+test_that("When a reactive feeds is bound by an event, the reprex only updates when the reactive updates", {
   test_server <- function(input, output, session) {
     my_name <- reactive(input$name) |>
       bindEvent(input$button, ignoreInit = TRUE)
