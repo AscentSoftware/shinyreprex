@@ -18,7 +18,7 @@ test_that("Able to extract a `NULL` variable", {
     expr = {
       session$setInputs(min_width = 3.5)
 
-      repro_code <- reprex_reactivesummary_tbl)
+      repro_code <- reprex_reactive(summary_tbl)
       expect_identical(repro_code, "datasets::penguins")
     }
   )

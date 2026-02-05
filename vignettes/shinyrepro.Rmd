@@ -38,11 +38,11 @@ width_range <- reactive({
 })
 
 # Good
-repro_range <- reactive(reprex_reactivewidth_range)) |>
+repro_range <- reactive(reprex_reactive(width_range)) |>
   bindEvent(width_range())
   
 # Bad
-repro_range <- reactive(reprex_reactivewidth_range))
+repro_range <- reactive(reprex_reactive(width_range))
 ```
 
 ### Put Side-Effects in Observers

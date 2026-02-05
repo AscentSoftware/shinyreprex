@@ -82,7 +82,7 @@ server <- function(input, output, session) {
     bindEvent(input$update)
 
   output$table <- renderTable(summary_tbl())
-  output$code <- renderText(reprex_reactivesummary_tbl))
+  output$code <- renderText(reprex_reactive(summary_tbl))
 }
 
 shinyApp(ui, server)

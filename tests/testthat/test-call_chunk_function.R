@@ -33,7 +33,7 @@ test_that("Able to extract inputs inside anonymous functions within a reactive e
     expr = {
       session$setInputs(min_width = 2.5, max_width = 10)
 
-      repro_code <- reprex_reactivemax_area)
+      repro_code <- reprex_reactive(max_area)
       expect_identical(
         repro_code,
         paste(
@@ -64,7 +64,7 @@ test_that("Able to extract inputs as arguments to anonymous functions within a r
     expr = {
       session$setInputs(min_width = 2.5, max_width = 10)
 
-      repro_code <- reprex_reactivemax_area)
+      repro_code <- reprex_reactive(max_area)
       expect_identical(
         repro_code,
         paste(

@@ -54,7 +54,7 @@ test_that("Able to extract reactive expression code from a standard reactive", {
     expr = {
       session$setInputs(min_width = 3.5, summary_fn = "median")
 
-      repro_code <- reprex_reactivesummary_tbl)
+      repro_code <- reprex_reactive(summary_tbl)
       expect_identical(
         repro_code,
         paste(
@@ -88,7 +88,7 @@ test_that("Able to extract reactive expression code from bindCache", {
     expr = {
       session$setInputs(min_width = 3.5, summary_fn = "median")
 
-      repro_code <- reprex_reactivesummary_tbl)
+      repro_code <- reprex_reactive(summary_tbl)
       expect_identical(
         repro_code,
         paste(
@@ -122,7 +122,7 @@ test_that("Able to extract reactive expression code from bindEvent", {
     expr = {
       session$setInputs(min_width = 3.5, summary_fn = "median")
 
-      repro_code <- reprex_reactivesummary_tbl)
+      repro_code <- reprex_reactive(summary_tbl)
       expect_identical(
         repro_code,
         paste(
@@ -158,7 +158,7 @@ test_that("Able to extract reactive expression code from bindEvent and bindCache
     expr = {
       session$setInputs(min_width = 3.5, summary_fn = "median")
 
-      repro_code <- reprex_reactivesummary_tbl)
+      repro_code <- reprex_reactive(summary_tbl)
       expect_identical(
         repro_code,
         paste(
@@ -192,7 +192,7 @@ test_that("Able to extract reactive expression code from eventReactive", {
     expr = {
       session$setInputs(min_width = 3.5, summary_fn = "median")
 
-      repro_code <- reprex_reactivesummary_tbl)
+      repro_code <- reprex_reactive(summary_tbl)
       expect_identical(
         repro_code,
         paste(

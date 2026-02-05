@@ -7,7 +7,7 @@ test_that("When a non-reactive call is passed to repro, error gets returned", {
     test_server,
     expr = {
       expect_error(
-        reprex_reactiveiris),
+        reprex_reactive(iris),
         "Unable to generate reproducible code for iris, must be an unevaluated reactive object",
         fixed = TRUE
       )
@@ -24,7 +24,7 @@ test_that("When a reactive is evaluated into repro, specific error is returned t
     test_server,
     expr = {
       expect_error(
-        reprex_reactivetest_reactive()),
+        reprex_reactive(test_reactive()),
         "test_reactive has already been evaluated, please remove brackets to pass through reactive object",
         fixed = TRUE
       )
@@ -40,12 +40,12 @@ test_that("Able to reproduce a simple one-line reactive", {
   shiny::testServer(
     test_server,
     expr = {
-      repro_code <- reprex_reactivetest_reactive)
+      repro_code <- reprex_reactive(test_reactive)
       expect_identical(repro_code, "")
 
       session$setInputs(foo = "bar")
 
-      repro_code <- reprex_reactivetest_reactive)
+      repro_code <- reprex_reactive(test_reactive)
       expect_identical(repro_code, "\"bar\"")
     }
   )
@@ -69,7 +69,7 @@ test_that("Able to reproduce a reactive stemming from another reactive", {
     expr = {
       session$setInputs(min_width = 3.5, summary_fn = "median")
 
-      repro_code <- reprex_reactivesummary_tbl)
+      repro_code <- reprex_reactive(summary_tbl)
       expect_identical(
         repro_code,
         paste(
@@ -108,7 +108,7 @@ test_that("When one non-standard package is used, it is added to the top of the 
     expr = {
       session$setInputs(min_width = 3.5, summary_fn = "median")
 
-      repro_code <- reprex_reactivesummary_tbl)
+      repro_code <- reprex_reactive(summary_tbl)
       expect_identical(
         repro_code,
         paste(
@@ -157,7 +157,7 @@ test_that("Able to reproduce a reactive using the session user data", {
     expr = {
       session$setInputs(summary_fn = "median")
 
-      repro_code <- reprex_reactivesummary_tbl)
+      repro_code <- reprex_reactive(summary_tbl)
       expect_identical(
         repro_code,
         paste(
@@ -187,7 +187,7 @@ test_that("Able to reproduce a reactive without printing the environment variabl
   shiny::testServer(
     test_server,
     expr = {
-      repro_code <- reprex_reactivesummary_tbl)
+      repro_code <- reprex_reactive(summary_tbl)
       expect_identical(
         repro_code,
         paste(
@@ -222,7 +222,7 @@ test_that("Able to reproduce a complex reactive without printing the environment
   shiny::testServer(
     test_server,
     expr = {
-      repro_code <- reprex_reactivesummary_tbl)
+      repro_code <- reprex_reactive(summary_tbl)
       expect_identical(
         repro_code,
         paste(
@@ -255,7 +255,7 @@ test_that("Able to reproduce a reactive without printing the environment variabl
     expr = {
       session$setInputs(summary_fn = "median")
 
-      repro_code <- reprex_reactivesummary_tbl)
+      repro_code <- reprex_reactive(summary_tbl)
       expect_identical(
         repro_code,
         "aggregate(Sepal.Width ~ Species, data = iris, FUN = get(Sys.getenv(\"DUMMY_FN\")))"
@@ -280,10 +280,10 @@ test_that("When reproducing a reactive with multiple dependency reactives, simil
     nrow(reactive_1()) * nrow(reactive_2())
   })
 
-  repro_r1 <- shiny::isolate(reprex_reactivereactive_1))
+  repro_r1 <- shiny::isolate(reprex_reactive(reactive_1))
   expect_no_match(repro_r1, "min_value <- 6")
 
-  repro_r3 <- shiny::isolate(reprex_reactivereactive_3))
+  repro_r3 <- shiny::isolate(reprex_reactive(reactive_3))
   expect_match(repro_r3, "min_value <- 6")
   remove(min_value, reactive_1, reactive_2, reactive_3)
 
@@ -297,7 +297,7 @@ test_that("When a reactive feeds is bound by an event, the repro only updates wh
     my_name <- reactive(input$name) |>
       bindEvent(input$button, ignoreInit = TRUE)
 
-    test_reactive <- reactive(reprex_reactivemy_name)) |>
+    test_reactive <- reactive(reprex_reactive(my_name)) |>
       bindEvent(my_name())
   }
 
