@@ -1,8 +1,8 @@
 #' @description
 #' When reproducing a reactive object, a step is required to get the environment that
-#' the reactive was assigned in, rather than the environment that is calling `repro`.
+#' the reactive was assigned in, rather than the environment that is calling `shiny_reprex`.
 #' For that, some diving into the internals of the observable object is required to
-#' get the specific environment, before generating the repro code.
+#' get the specific environment, before generating the reproducible code.
 #'
 #' ## Environments
 #' The `Observable` object attached to the given reactive is extracted. Within the

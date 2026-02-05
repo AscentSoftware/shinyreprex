@@ -59,7 +59,7 @@
 #'   })
 #'
 #'   output$table <- renderTable(summary_tbl())
-#'   output$code <- renderText(repro(summary_tbl))
+#'   output$code <- renderText(reprex_reactive(summary_tbl))
 #' }
 #'
 #' if (interactive()) {
@@ -67,7 +67,7 @@
 #' }
 #'
 #' @export
-repro <- function(x) {
+reprex_reactive <- function(x) {
   if (!inherits(x, "reactiveExpr")) {
     x_name <- rlang::caller_arg(x)
 

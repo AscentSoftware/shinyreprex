@@ -1,4 +1,4 @@
-Package: shinyrepro
+Package: shinyreprex
 Type: Package
 Title: Reproducible Code for 'Shiny' Objects
 Version: 0.1.0
@@ -8,8 +8,8 @@ Description: Provides functionality to extract reactive expressions from a 'Shin
     outside the interactive UI, facilitating integration into static reports or automated workflows 
     without requiring access to the original application source code.
 License: MIT + file LICENSE
-URL: https://github.com/AscentSoftware/shinyrepro, https://jubilant-dollop-5lekoky.pages.github.io
-BugReports: https://github.com/AscentSoftware/shinyrepro/issues
+URL: https://github.com/AscentSoftware/shinyreprex, https://ascentsoftware.github.io/shinyreprex/
+BugReports: https://github.com/AscentSoftware/shinyreprex/issues
 Depends:
     R (>= 4.3.0)
 Imports:
@@ -49,4 +49,4 @@ Collate:
     'chunk_generic.R'
     'chunk_reactive.R'
     'package.R'
-    'repro.R'
+    'reprex_reactive.R'

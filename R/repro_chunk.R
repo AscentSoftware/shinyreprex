@@ -10,11 +10,12 @@
 #' empty, but if `x` is not the first call within an expression, this will have
 #' prior calls and pre-requisites that might be used in `x`.
 #' @param env The environment `x` is defined in. By default it is the environment of where
-#' `repro` is called
+#' `reprex_reactive` is called
 #'
 #' @details
 #' Whilst a default is provided to `env`, it is unlikely that this is the same environment
-#' `x` is defined in. This allows the top-level `repro` call
+#' `x` is defined in. This allows the top-level `reprex_reactive` call to pass through
+#' environments found for calls to other reactives in the chunk.
 #'
 #' @returns
 #' A `Repro` object containing all the necessary code and packages to recreate

@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(shinyrepro)
+library(shinyreprex)
 
-test_check("shinyrepro")
+test_check("shinyreprex")
