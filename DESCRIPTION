@@ -49,4 +49,6 @@ Collate:
     'chunk_generic.R'
     'chunk_reactive.R'
     'package.R'
+    'render_reprex.R'
     'reprex_reactive.R'
+    'reprex_reactive_fn.R'
