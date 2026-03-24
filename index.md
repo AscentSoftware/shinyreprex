@@ -1,7 +1,5 @@
 # shinyreprex
 
-## Overview
-
 The aim of **shinyreprex** is to be able to recreate any reactive or
 output that is available in a Shiny application outside of said
 application.
