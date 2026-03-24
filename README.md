@@ -1,5 +1,7 @@
 # shinyreprex
 
+<img src="man/figures/logo.png" width="120" align="right"/>
+
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
