@@ -1,7 +1,5 @@
 # shinyreprex
 
-![](reference/figures/logo.png)
-
 ## Overview
 
 The aim of **shinyreprex** is to be able to recreate any reactive or
