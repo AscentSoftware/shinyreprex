@@ -1,4 +1,4 @@
-# shinyreprex 
+# shinyreprex
 
 <img src="man/figures/logo.png" width="120" height="120" align="right" alt=""/>
 
