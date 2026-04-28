@@ -34,6 +34,7 @@ chunk, these are special cases that need to be handled in a non-standard way.
 The class capturing evaluated \code{\link[shiny:reactiveValues]{shiny::reactiveValues()}} objects
 }
 \item{class_call_if}{The class capturing \code{if} calls}
+\item{class_call_switch}{The class capturing \code{switch} calls}
 \item{class_call_null}{The class capturing undefined calls, such as \code{pkg::fn}}
 \item{class_call_shiny}{
 The class capturing ignorable shiny function calls such as
