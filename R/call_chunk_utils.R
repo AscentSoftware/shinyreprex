@@ -34,6 +34,18 @@ is_reactive_val_call <- function(x, env = rlang::caller_env()) {
 }
 
 #' @description
+#' `is_reactive_val_setter_call` checks whether or not the call is setting the value
+#' of a `shiny::reactiveVal` variable.
+#'
+#' @rdname call_chunk_checks
+is_reactive_val_setter_call <- function(x, env = rlang::caller_env()) {
+  rlang::is_call(x) &&
+    length(rlang::call_args(x)) == 1L &&
+    rlang::call_name(x) %in% names(env) &&
+    inherits(env[[rlang::call_name(x)]], "reactiveVal")
+}
+
+#' @description
 #' `is_reactive_values_call` checks whether or not the call is evaluating an item
 #' within a `shiny::reactiveValues` variable.
 #'

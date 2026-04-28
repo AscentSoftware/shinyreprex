@@ -9,13 +9,18 @@ S7::method(repro_chunk, S7::class_call) <- function(x, repro_code = Repro(), env
   call_env <- env
   call_name <- rlang::call_name(x) %||% "NULL"
 
-  if (is_reactive_val_call(x, env)) {
+
+  if (is_reactive_val_setter_call(x, env)) {
+    # reactiveVal setter: warn and skip
+    call_name <- ".__reactval_setter"
+  } else if (is_reactive_val_call(x, env)) {
+    # reactiveVal getter: evaluate and include
     call_name <- ".__reactval"
-    # Reactive object created within the module
   } else if (is_reactive_call(x, env)) {
+    # Reactive object created within the module
     call_name <- ".__reactive"
-    # Reactive object sent to the module
   } else if (is_reactive_call(x, parent.env(env))) {
+    # Reactive object sent to the module
     call_name <- ".__reactive"
     call_env <- parent.env(env)
   }
