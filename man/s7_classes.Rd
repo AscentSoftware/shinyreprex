@@ -39,7 +39,7 @@ The class capturing evaluated \code{\link[shiny:reactiveValues]{shiny::reactiveV
 The class capturing ignorable shiny function calls such as
 \code{\link[shiny:req]{shiny::req()}} and \code{\link[shiny:validate]{shiny::validate()}}
 }
-\item{class_call_subset}{The class capturing a subset (\code{$}) call}
+\item{class_call_subset}{The class capturing a subset (\code{$}) or a double-bracket subset (\code{[[}) call}
 }
 }
 }

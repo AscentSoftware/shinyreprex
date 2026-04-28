@@ -35,7 +35,7 @@
 #' The class capturing ignorable shiny function calls such as
 #' [shiny::req()] and [shiny::validate()]
 #' }
-#' \item{class_call_subset}{The class capturing a subset (`$`) call}
+#' \item{class_call_subset}{The class capturing a subset (`$`) or a double-bracket subset (`[[`) call}
 #' }
 #'
 #' @usage NULL
@@ -55,4 +55,4 @@ class_call_reactval <- S7::new_S3_class(".__reactval")
 class_call_if <- S7::new_S3_class("if")
 class_call_null <- S7::new_S3_class("NULL")
 class_call_shiny <- S7::new_union(S7::new_S3_class("req"), S7::new_S3_class("validate"))
-class_call_subset <- S7::new_S3_class("$")
+class_call_subset <- S7::new_union(S7::new_S3_class("$"), S7::new_S3_class("[["))
