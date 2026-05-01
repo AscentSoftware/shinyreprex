@@ -1,10 +1,10 @@
 # shinyreprex
 
+<img src="man/figures/logo.png" width="120" height="120" align="right" alt=""/>
+
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
-
-## Overview
 
 The aim of **shinyreprex** is to be able to recreate any reactive or output that is available in 
 a Shiny application outside of said application.

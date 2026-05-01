@@ -103,7 +103,7 @@ assign_reactive_call <- function(x, repro_call) {
 #' Get Call Package Name
 #'
 #' @noRd
-get_pkg_name <- function(x, base_pkgs = NULL) {
+get_pkg_name <- function(x, base_pkgs = BASE_PKGS) {
   if (rlang::is_call(x[[1]], "::")) return(as.character(x[[1]][[2]]))
 
   pkg_name <- tryCatch(
@@ -111,16 +111,14 @@ get_pkg_name <- function(x, base_pkgs = NULL) {
     error = \(e) NULL
   )
 
-  if (is.null(base_pkgs)) {
-    base_pkgs <- rownames(utils::installed.packages(priority = "base"))
-  }
-
   if (is.null(pkg_name) || pkg_name %in% base_pkgs) {
     NULL
   } else {
     pkg_name
   }
 }
+
+BASE_PKGS <- c("base", "stats", "graphics", "utils", "grDevices", "datasets", "methods")
 
 #' Construct Reactive Value
 #'

@@ -78,9 +78,13 @@ Repro <- S7::new_class(
 
     script = S7::new_property(
       getter = function(self) {
-        self@calls |>
-          styler::style_text() |>
-          paste(collapse = "\n")
+        if (sum(nchar(self@calls)) > 0L) {
+          self@calls |>
+            styler::style_text() |>
+            paste(collapse = "\n")
+        } else {
+          ""
+        }
       }
     )
   )
