@@ -3,6 +3,7 @@
 \name{is_reactive_call}
 \alias{is_reactive_call}
 \alias{is_reactive_val_call}
+\alias{is_reactive_val_setter_call}
 \alias{is_reactive_values_call}
 \alias{is_any_reactive_call}
 \alias{is_variable_call}
@@ -13,6 +14,8 @@
 is_reactive_call(x, env = rlang::caller_env())
 
 is_reactive_val_call(x, env = rlang::caller_env())
+
+is_reactive_val_setter_call(x, env = rlang::caller_env())
 
 is_reactive_values_call(x, env = rlang::caller_env())
 
@@ -45,6 +48,9 @@ an expression.
 
 \code{is_reactive_val_call} checks whether or not the call is evaluating a
 \code{shiny::reactiveVal} variable.
+
+\code{is_reactive_val_setter_call} checks whether or not the call is setting the value
+of a \code{shiny::reactiveVal} variable.
 
 \code{is_reactive_values_call} checks whether or not the call is evaluating an item
 within a \code{shiny::reactiveValues} variable.

@@ -33,6 +33,10 @@ chunk, these are special cases that need to be handled in a non-standard way.
 \item{class_call_reactval}{
 The class capturing evaluated \code{\link[shiny:reactiveValues]{shiny::reactiveValues()}} objects
 }
+\item{class_call_reactval_setter}{
+The class capturing \code{\link[shiny:reactiveVal]{shiny::reactiveVal()}} setter calls, which are skipped
+with a warning as they cannot be reproduced outside of Shiny
+}
 \item{class_call_if}{The class capturing \code{if} calls}
 \item{class_call_switch}{The class capturing \code{switch} calls}
 \item{class_call_null}{The class capturing undefined calls, such as \code{pkg::fn}}
