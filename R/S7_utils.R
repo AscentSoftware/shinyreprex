@@ -29,13 +29,18 @@
 #' \item{class_call_reactval}{
 #' The class capturing evaluated [shiny::reactiveValues()] objects
 #' }
+#' \item{class_call_reactval_setter}{
+#' The class capturing [shiny::reactiveVal()] setter calls, which are skipped
+#' with a warning as they cannot be reproduced outside of Shiny
+#' }
 #' \item{class_call_if}{The class capturing `if` calls}
+#' \item{class_call_switch}{The class capturing `switch` calls}
 #' \item{class_call_null}{The class capturing undefined calls, such as `pkg::fn`}
 #' \item{class_call_shiny}{
 #' The class capturing ignorable shiny function calls such as
 #' [shiny::req()] and [shiny::validate()]
 #' }
-#' \item{class_call_subset}{The class capturing a subset (`$`) call}
+#' \item{class_call_subset}{The class capturing a subset (`$`) or a double-bracket subset (`[[`) call}
 #' }
 #'
 #' @usage NULL
@@ -52,7 +57,9 @@ class_bind_reactive <- S7::new_union(class_event_reactive, class_event_cache)
 class_call_function <- S7::new_S3_class("function")
 class_call_reactive <- S7::new_S3_class(".__reactive")
 class_call_reactval <- S7::new_S3_class(".__reactval")
+class_call_reactval_setter <- S7::new_S3_class(".__reactval_setter")
 class_call_if <- S7::new_S3_class("if")
+class_call_switch <- S7::new_S3_class("switch")
 class_call_null <- S7::new_S3_class("NULL")
 class_call_shiny <- S7::new_union(S7::new_S3_class("req"), S7::new_S3_class("validate"))
-class_call_subset <- S7::new_S3_class("$")
+class_call_subset <- S7::new_union(S7::new_S3_class("$"), S7::new_S3_class("[["))

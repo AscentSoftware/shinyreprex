@@ -43,6 +43,7 @@ Collate:
     'call_chunk_reactval.R'
     'call_chunk_shiny.R'
     'call_chunk_subset.R'
+    'call_chunk_switch.R'
     'call_chunk_utils.R'
     'repro_chunk.R'
     'chunk_call.R'

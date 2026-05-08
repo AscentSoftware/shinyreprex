@@ -319,6 +319,34 @@ test_that("When a reactive feeds is bound by an event, the reprex only updates w
   )
 })
 
+test_that("Able to reproduce a reactive using [[ notation for inputs and reactiveValues", {
+  test_server <- function(input, output, session) {
+    iris_filt <- reactive(iris[with(iris, Petal.Width > input[["min_width"]]), ])
+
+    rv <- reactiveValues(summary_fn = "mean")
+
+    summary_tbl <- reactive({
+      aggregate(
+        Sepal.Width ~ Species,
+        data = iris_filt(),
+        FUN = get(rv[["summary_fn"]])
+      )
+    })
+  }
+
+  shiny::testServer(
+    test_server,
+    expr = {
+      session$setInputs(min_width = 0.5)
+
+      repro_code <- reprex_reactive(summary_tbl)
+      expect_match(repro_code, "iris_filt <-")
+      expect_match(repro_code, "0.5")
+      expect_match(repro_code, "summary_fn <- \"mean\"")
+    }
+  )
+})
+
 test_that("Reproducible reactives aren't rendered twice when referenced twice in a reactive", {
   reactiveTabServer <- function(id) {
     moduleServer(id, function(input, output, session) {
