@@ -17,6 +17,7 @@ able to run in an environment outside of Shiny.
 To get the latest version of shinyreprex, install from GitHub:
 
 ``` r
+
 require(remotes)
 remotes::install_github("AscentSoftware/shinyreprex")
 ```
@@ -29,6 +30,7 @@ a table output, which can be passed to `reprex_reactive` to re-create
 the code that generates the table seen in the UI.
 
 ``` r
+
 library(shiny)
 library(shinyreprex)
 

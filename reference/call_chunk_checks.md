@@ -11,6 +11,11 @@ variable.
 [`shiny::reactiveVal`](https://rdrr.io/pkg/shiny/man/reactiveVal.html)
 variable.
 
+`is_reactive_val_setter_call` checks whether or not the call is setting
+the value of a
+[`shiny::reactiveVal`](https://rdrr.io/pkg/shiny/man/reactiveVal.html)
+variable.
+
 `is_reactive_values_call` checks whether or not the call is evaluating
 an item within a
 [`shiny::reactiveValues`](https://rdrr.io/pkg/shiny/man/reactiveValues.html)
@@ -34,6 +39,8 @@ an object within `session$userData`
 is_reactive_call(x, env = rlang::caller_env())
 
 is_reactive_val_call(x, env = rlang::caller_env())
+
+is_reactive_val_setter_call(x, env = rlang::caller_env())
 
 is_reactive_values_call(x, env = rlang::caller_env())
 

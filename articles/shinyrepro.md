@@ -19,6 +19,7 @@ or reactive feeding into the provided reactive is updated, therefore it
 is recommended to have the reactive as an event attached.
 
 ``` r
+
 width_range <- reactive({
   iris_filt <- dplyr::filter(iris, Species == "versicolor")
   range(iris_filt$Petal.Width)
@@ -40,6 +41,7 @@ instead create smaller reactive calls, and have observers running the
 code not intended for reproducing outputs.
 
 ``` r
+
 # Good
 width_range <- reactive({
   iris_filt <- dplyr::filter(iris, Species == "versicolor")
@@ -81,6 +83,7 @@ module, or in the global environment, the secret will be written in the
 assignment.
 
 ``` r
+
 # Good
 moduleServer(id, function(input, output, session) {
   my_reactive <- reactive({

@@ -5,6 +5,8 @@ is_reactive_call checks whether or not the call is evaluating a
 shiny::reactive variable.
 is_reactive_val_call checks whether or not the call is evaluating a
 shiny::reactiveVal variable.
+is_reactive_val_setter_call checks whether or not the call is setting the value
+of a shiny::reactiveVal variable.
 is_reactive_values_call checks whether or not the call is evaluating an item
 within a shiny::reactiveValues variable.
 is_any_reactive_call checks whether or not the call points to evaluating a
@@ -19,6 +21,8 @@ is_reactive_call checks whether or not the call is evaluating a
 shiny::reactive variable.
 is_reactive_val_call checks whether or not the call is evaluating a
 shiny::reactiveVal variable.
+is_reactive_val_setter_call checks whether or not the call is setting the value
+of a shiny::reactiveVal variable.
 is_reactive_values_call checks whether or not the call is evaluating an item
 within a shiny::reactiveValues variable.
 is_any_reactive_call checks whether or not the call points to evaluating a
@@ -71,6 +75,8 @@ an expression.</p>
 <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">shiny::reactive</a></code> variable.</p>
 <p><code>is_reactive_val_call</code> checks whether or not the call is evaluating a
 <code><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">shiny::reactiveVal</a></code> variable.</p>
+<p><code>is_reactive_val_setter_call</code> checks whether or not the call is setting the value
+of a <code><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">shiny::reactiveVal</a></code> variable.</p>
 <p><code>is_reactive_values_call</code> checks whether or not the call is evaluating an item
 within a <code><a href="https://rdrr.io/pkg/shiny/man/reactiveValues.html" class="external-link">shiny::reactiveValues</a></code> variable.</p>
 <p><code>is_any_reactive_call</code> checks whether or not the call points to evaluating a
@@ -87,6 +93,8 @@ within <code>session$userData</code></p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">is_reactive_call</span><span class="op">(</span><span class="va">x</span>, env <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">is_reactive_val_call</span><span class="op">(</span><span class="va">x</span>, env <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_reactive_val_setter_call</span><span class="op">(</span><span class="va">x</span>, env <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">is_reactive_values_call</span><span class="op">(</span><span class="va">x</span>, env <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>

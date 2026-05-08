@@ -52,9 +52,20 @@ in a non-standard way.
   [`shiny::reactiveValues()`](https://rdrr.io/pkg/shiny/man/reactiveValues.html)
   objects
 
+- class_call_reactval_setter:
+
+  The class capturing
+  [`shiny::reactiveVal()`](https://rdrr.io/pkg/shiny/man/reactiveVal.html)
+  setter calls, which are skipped with a warning as they cannot be
+  reproduced outside of Shiny
+
 - class_call_if:
 
   The class capturing `if` calls
+
+- class_call_switch:
+
+  The class capturing `switch` calls
 
 - class_call_null:
 
@@ -68,4 +79,5 @@ in a non-standard way.
 
 - class_call_subset:
 
-  The class capturing a subset (`$`) call
+  The class capturing a subset (`$`) or a double-bracket subset (`[[`)
+  call

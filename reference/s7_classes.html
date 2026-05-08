@@ -40,8 +40,15 @@ The class capturing evaluated shiny::reactive() objects
 class_call_reactval
 The class capturing evaluated shiny::reactiveValues() objects
 
+class_call_reactval_setter
+The class capturing shiny::reactiveVal() setter calls, which are skipped
+with a warning as they cannot be reproduced outside of Shiny
+
 class_call_if
 The class capturing if calls
+
+class_call_switch
+The class capturing switch calls
 
 class_call_null
 The class capturing undefined calls, such as pkg::fn
@@ -51,7 +58,7 @@ The class capturing ignorable shiny function calls such as
 shiny::req() and shiny::validate()
 
 class_call_subset
-The class capturing a subset ($) call
+The class capturing a subset ($) or a double-bracket subset ([[) call
 
 
 
@@ -98,8 +105,15 @@ The class capturing evaluated shiny::reactive() objects
 class_call_reactval
 The class capturing evaluated shiny::reactiveValues() objects
 
+class_call_reactval_setter
+The class capturing shiny::reactiveVal() setter calls, which are skipped
+with a warning as they cannot be reproduced outside of Shiny
+
 class_call_if
 The class capturing if calls
+
+class_call_switch
+The class capturing switch calls
 
 class_call_null
 The class capturing undefined calls, such as pkg::fn
@@ -109,7 +123,7 @@ The class capturing ignorable shiny function calls such as
 shiny::req() and shiny::validate()
 
 class_call_subset
-The class capturing a subset ($) call
+The class capturing a subset ($) or a double-bracket subset ([[) call
 
 
 
@@ -190,8 +204,15 @@ chunk, these are special cases that need to be handled in a non-standard way.</p
 <dt>class_call_reactval</dt>
 <dd><p>The class capturing evaluated <code><a href="https://rdrr.io/pkg/shiny/man/reactiveValues.html" class="external-link">shiny::reactiveValues()</a></code> objects</p></dd>
 
+<dt>class_call_reactval_setter</dt>
+<dd><p>The class capturing <code><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">shiny::reactiveVal()</a></code> setter calls, which are skipped
+with a warning as they cannot be reproduced outside of Shiny</p></dd>
+
 <dt>class_call_if</dt>
 <dd><p>The class capturing <code>if</code> calls</p></dd>
+
+<dt>class_call_switch</dt>
+<dd><p>The class capturing <code>switch</code> calls</p></dd>
 
 <dt>class_call_null</dt>
 <dd><p>The class capturing undefined calls, such as <code>pkg::fn</code></p></dd>
@@ -201,7 +222,7 @@ chunk, these are special cases that need to be handled in a non-standard way.</p
 <code><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">shiny::req()</a></code> and <code><a href="https://rdrr.io/pkg/shiny/man/validate.html" class="external-link">shiny::validate()</a></code></p></dd>
 
 <dt>class_call_subset</dt>
-<dd><p>The class capturing a subset (<code>$</code>) call</p></dd>
+<dd><p>The class capturing a subset (<code>$</code>) or a double-bracket subset (<code>[[</code>) call</p></dd>
 
 
 </dl></div>
