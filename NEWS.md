@@ -6,7 +6,7 @@ New features:
 
 Other updates:
 
-
+* Update to the logo
 
 Bug fixes:
 

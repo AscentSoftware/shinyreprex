@@ -1,4 +1,4 @@
 url: https://ascentsoftware.github.io/shinyreprex/
 template:
-  package: ascentdown
+  package: acuitydown
   bootstrap: 5
