@@ -1,7 +1,7 @@
 Package: shinyreprex
 Type: Package
 Title: Reproducible Code for 'Shiny' Objects
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(person("Ashley", "Baldry", email = "ashley.baldry@acuityanalytics.com", role = c("aut", "cre")))
 Description: Provides functionality to extract reactive expressions from a 'shiny' application and 
     convert them into stand-alone R scripts. This enables users to reproduce tables and visualisations 
