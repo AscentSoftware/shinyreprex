@@ -1,7 +1,5 @@
 # shinyreprex
 
-![](reference/figures/logo.png)
-
 The aim of **shinyreprex** is to be able to recreate any reactive or
 output that is available in a Shiny application outside of said
 application.
@@ -14,7 +12,12 @@ able to run in an environment outside of Shiny.
 
 ## Installation
 
-To get the latest version of shinyreprex, install from GitHub:
+``` r
+
+install.packages("shinyreprex")
+```
+
+To get the development version of shinyreprex, install from GitHub:
 
 ``` r
 

@@ -7,16 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Reproducible Code for Shiny Objects • shinyreprex</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Nunito-0.4.10/font.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/Public_Sans-0.4.10/font.css" rel="stylesheet">
 <link href="deps/Inconsolata-0.4.10/font.css" rel="stylesheet">
-<link href="deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Reproducible Code for Shiny Objects">
 <meta name="description" content="Provides functionality to extract reactive expressions from a shiny application and convert them into stand-alone R scripts. This enables users to reproduce tables and visualisations outside the interactive UI, facilitating integration into static reports or automated workflows without requiring access to the original application source code.">
 <meta property="og:description" content="Provides functionality to extract reactive expressions from a shiny application and convert them into stand-alone R scripts. This enables users to reproduce tables and visualisations outside the interactive UI, facilitating integration into static reports or automated workflows without requiring access to the original application source code.">
-<meta property="og:image" content="https://ascentsoftware.github.io/shinyreprex/logo.png">
+<meta property="og:image" content="https://ascentsoftware.github.io/shinyreprex/logo.svg">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -26,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="index.html">shinyreprex</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,13 +34,8 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="articles/shinyreprex.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/shinyrepro.html">Introduction to shinyreprex</a></li>
-  </ul>
-</li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -58,10 +52,10 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="shinyreprex">shinyreprex<a class="anchor" aria-label="anchor" href="#shinyreprex"></a>
+<img src="logo.svg" class="logo" alt=""><h1 id="shinyreprex-">shinyreprex 
+<a class="anchor" aria-label="anchor" href="#shinyreprex-"></a>
 </h1>
 </div>
-<p><img src="reference/figures/logo.png" width="120" height="120" align="right" alt=""></p>
 <!-- badges: start -->
 
 <p>The aim of <strong>shinyreprex</strong> is to be able to recreate any reactive or output that is available in a Shiny application outside of said application.</p>
@@ -69,8 +63,10 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>To get the latest version of shinyreprex, install from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"shinyreprex"</span><span class="op">)</span></span></code></pre></div>
+<p>To get the development version of shinyreprex, install from GitHub:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"AscentSoftware/shinyreprex"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -78,7 +74,7 @@
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>The following examples takes a couple of inputs, and uses one of them in one reactive, and the other in another reactive. The second reactive is a table output, which can be passed to <code>reprex_reactive</code> to re-create the code that generates the table seen in the UI.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AscentSoftware/shinyreprex" class="external-link">shinyreprex</a></span><span class="op">)</span></span>
 <span></span>
@@ -172,7 +168,10 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://cran.r-project.org/package=shinyreprex" class="external-link"><img src="https://www.r-pkg.org/badges/version/shinyreprex" alt="CRAN version"></a></li>
+<li><a href="https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R CMD check"></a></li>
+<li><a href="https://cran.r-project.org/web/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a></li>
+<li><a href="https://cran.r-project.org/package=shinyreprex" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/last-month/shinyreprex" alt="CRAN downloads last month"></a></li>
 </ul>
 </div>
 
