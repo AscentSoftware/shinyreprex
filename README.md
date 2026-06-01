@@ -1,9 +1,10 @@
-# shinyreprex
-
-<img src="man/figures/logo.png" width="120" height="120" align="right" alt=""/>
+# shinyreprex <a href="https://AscentSoftware.github.io/shinyreprex"><img src="man/figures/logo.svg" align="right" height="139" alt="dtlg website" /></a>
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml)
+[![CRAN version](https://www.r-pkg.org/badges/version/shinyreprex)](https://cran.r-project.org/package=shinyreprex)
+[![R CMD check](https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AscentSoftware/shinyreprex/actions/workflows/R-CMD-check.yaml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://cran.r-project.org/web/licenses/MIT)
+[![CRAN downloads last month](http://cranlogs.r-pkg.org/badges/last-month/shinyreprex)](https://cran.r-project.org/package=shinyreprex)
 <!-- badges: end -->
 
 The aim of **shinyreprex** is to be able to recreate any reactive or output that is available in 
@@ -16,7 +17,11 @@ environment outside of Shiny.
 
 ## Installation
 
-To get the latest version of shinyreprex, install from GitHub:
+``` r
+install.packages("shinyreprex")
+```
+
+To get the development version of shinyreprex, install from GitHub:
 
 ```r
 require(remotes)
