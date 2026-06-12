@@ -34,6 +34,17 @@ The following examples takes a couple of inputs, and uses one of them in one rea
 other in another reactive. The second reactive is a table output, which can be passed to 
 `reprex_reactive` to re-create the code that generates the table seen in the UI.
 
+### Live Demo
+
+<iframe 
+  src="https://ascentsoftware.github.io/shinyreprexdemo/" 
+  width="100%" 
+  height="800px" 
+  style="border:none;">
+</iframe>
+
+### Example Code
+
 ```r
 library(shiny)
 library(shinyreprex)
