@@ -9,6 +9,7 @@ New features:
 Other updates:
 
 - Update to the logo
+- Add shinylive example to GitHub Pages
 
 Bug fixes:
 
