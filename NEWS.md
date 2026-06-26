@@ -9,10 +9,6 @@ Other updates:
 * Update to the logo
 * Add shinylive example to GitHub Pages
 
-Bug fixes:
-
-
-
 # shinyreprex 0.1.0
 
 * This is the first release of shinyreprex
