@@ -1,4 +1,4 @@
-# shinyreprex <a href="https://AscentSoftware.github.io/shinyreprex"><img src="man/figures/logo.svg" align="right" height="139" alt="dtlg website" /></a>
+# shinyreprex <a href="https://AscentSoftware.github.io/shinyreprex/"><img src="man/figures/logo.svg" align="right" height="139" alt="dtlg website" /></a>
 
 <!-- badges: start -->
 [![CRAN version](https://www.r-pkg.org/badges/version/shinyreprex)](https://cran.r-project.org/package=shinyreprex)
