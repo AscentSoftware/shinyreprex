@@ -20,12 +20,17 @@ they require no installation.
 }
 \description{
 Extract the set of non-base packages needed to reproduce one or more
-\code{shiny::reactive} objects. This is the same set that \code{\link[=reprex_reactive]{reprex_reactive()}}
-would emit as \code{library()} calls, with duplicates removed across every
-reactive passed.
+\code{shiny::reactive} objects, with duplicates removed across every reactive
+passed.
 
 Use this when building a custom UI around \code{\link[=reprex_lockfile]{reprex_lockfile()}}: it gives you
 the list of detected packages to present to the user for selection.
+
+Packages are found by reading the expression held in each reactive rather
+than by generating its script, so every branch of an \code{if} or \code{switch}
+contributes. The result may therefore be a superset of the \code{library()} calls
+\code{\link[=reprex_reactive]{reprex_reactive()}} emits for the branch actually taken, on the basis that a
+lockfile is safer holding a package that is not needed than missing one.
 }
 \examples{
 \dontshow{if (rlang::is_installed("shiny")) withAutoprint(\{ # examplesIf}

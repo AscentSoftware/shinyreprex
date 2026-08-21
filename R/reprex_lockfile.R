@@ -2,12 +2,17 @@
 #'
 #' @description
 #' Extract the set of non-base packages needed to reproduce one or more
-#' `shiny::reactive` objects. This is the same set that [reprex_reactive()]
-#' would emit as `library()` calls, with duplicates removed across every
-#' reactive passed.
+#' `shiny::reactive` objects, with duplicates removed across every reactive
+#' passed.
 #'
 #' Use this when building a custom UI around [reprex_lockfile()]: it gives you
 #' the list of detected packages to present to the user for selection.
+#'
+#' Packages are found by reading the expression held in each reactive rather
+#' than by generating its script, so every branch of an `if` or `switch`
+#' contributes. The result may therefore be a superset of the `library()` calls
+#' [reprex_reactive()] emits for the branch actually taken, on the basis that a
+#' lockfile is safer holding a package that is not needed than missing one.
 #'
 #' @param ... One or more `shiny::reactive` objects to inspect. If none are
 #' supplied, every reactive registered against `session` by [register_reactives()]
@@ -49,8 +54,8 @@ reprex_packages <- function(..., session = shiny::getDefaultReactiveDomain()) {
   }
 
   reactives |>
-    purrr::map(repro_chunk) |>
-    purrr::map("packages") |>
+    purrr::map(reactive_expression) |>
+    purrr::map(\(reactive) walk_packages(reactive$body, reactive$env)) |>
     unlist(use.names = FALSE) |>
     unique()
 }
