@@ -158,7 +158,8 @@ test_that("Able to extract an unbraced 'else if' branch as a single expression",
 test_that("Able to mix braced and unbraced branches in the same if/else statement", {
   test_server <- function(input, output, session) {
     summary_tbl <- reactive({
-      if (input$numeric_only) {
+      # Mismatched braces are the subject of this test
+      if (input$numeric_only) { # nolint: brace_linter.
         purrr::keep(iris, is.numeric)
       } else styler::style_text("1+1")
     })
