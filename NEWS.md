@@ -10,6 +10,11 @@ Bug fixes:
   single expression rather than a `{` block had its function call stripped, producing
   a script containing only the call's arguments, and any package used solely in that
   branch went undetected
+* Return an empty script for an `if` without an `else` whose condition is not met,
+  rather than erroring with `subscript out of bounds`
+* Select the correct branch when an `if` condition evaluates to a truthy value other
+  than `TRUE`, such as a non-zero number. Previously the condition itself was
+  reproduced in place of the `if` branch
 
 Other updates:
 

@@ -195,6 +195,65 @@ test_that("Packages are detected within an unbraced branch", {
   )
 })
 
+test_that("Able to extract the 'if' part of an if statement with no else", {
+  test_server <- function(input, output, session) {
+    summary_tbl <- reactive({
+      if (input$min_width > 3) iris[with(iris, Sepal.Width > input$min_width), ]
+    })
+  }
+
+  shiny::testServer(
+    test_server,
+    expr = {
+      session$setInputs(min_width = 3.5)
+
+      repro_code <- reprex_reactive(summary_tbl)
+      expect_identical(repro_code, "iris[with(iris, Sepal.Width > 3.5), ]")
+    }
+  )
+})
+
+test_that("Returns empty script when an if statement with no else is not met", {
+  test_server <- function(input, output, session) {
+    summary_tbl <- reactive({
+      if (input$min_width > 3) iris[with(iris, Sepal.Width > input$min_width), ]
+    })
+  }
+
+  shiny::testServer(
+    test_server,
+    expr = {
+      session$setInputs(min_width = 2.5)
+
+      repro_code <- reprex_reactive(summary_tbl)
+      expect_identical(repro_code, "")
+    }
+  )
+})
+
+test_that("Able to extract the branch of an if statement with a numeric condition", {
+  test_server <- function(input, output, session) {
+    summary_tbl <- reactive({
+      if (input$n_species) iris[iris$Species == "setosa", ] else iris
+    })
+  }
+
+  shiny::testServer(
+    test_server,
+    expr = {
+      # A truthy condition that is not `TRUE` still selects the 'if' branch
+      session$setInputs(n_species = 2)
+      expect_identical(reprex_reactive(summary_tbl), 'iris[iris$Species == "setosa", ]')
+
+      session$setInputs(n_species = 1)
+      expect_identical(reprex_reactive(summary_tbl), 'iris[iris$Species == "setosa", ]')
+
+      session$setInputs(n_species = 0)
+      expect_identical(reprex_reactive(summary_tbl), "iris")
+    }
+  )
+})
+
 test_that("Only packages used in the branch taken by the current inputs are detected", {
   test_server <- function(input, output, session) {
     summary_tbl <- reactive({
