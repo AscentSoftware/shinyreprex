@@ -29,7 +29,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.svg" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/AscentSoftware/shinyreprex/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/AscentSoftware/shinyreprex/blob/v0.2.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
@@ -37,11 +37,6 @@
 <p>New features:</p>
 <ul><li>Handling special cases of additional base functions <code>switch</code> and <code>[[</code>
 </li>
-</ul><p>Bug fixes:</p>
-<ul><li>Correctly reproduce unbraced <code>if</code>/<code>else</code> branches. Previously a branch that was a single expression rather than a <code>{</code> block had its function call stripped, producing a script containing only the call’s arguments, and any package used solely in that branch went undetected</li>
-<li>Return an empty script for an <code>if</code> without an <code>else</code> whose condition is not met, rather than erroring with <code>subscript out of bounds</code>
-</li>
-<li>Select the correct branch when an <code>if</code> condition evaluates to a truthy value other than <code>TRUE</code>, such as a non-zero number. Previously the condition itself was reproduced in place of the <code>if</code> branch</li>
 </ul><p>Other updates:</p>
 <ul><li>Update to the logo</li>
 <li>Add shinylive example to GitHub Pages</li>
