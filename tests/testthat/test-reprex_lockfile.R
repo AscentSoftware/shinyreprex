@@ -23,7 +23,6 @@ test_that("A non-reactive object passed to reprex_packages errors", {
 #### reprex_lockfile ####
 test_that("A restorable lockfile is written covering the reactive's packages", {
   skip_on_cran()
-  skip_if_not_installed("renv")
 
   test_server <- function(input, output, session) {
     a <- reactive(purrr::map(seq_len(input$n), function(x) x * 2))
@@ -51,7 +50,6 @@ test_that("A restorable lockfile is written covering the reactive's packages", {
 
 test_that("A lockfile covering the whole application is created from registered reactives alone", {
   skip_on_cran()
-  skip_if_not_installed("renv")
 
   test_server <- function(input, output, session) {
     shiny::moduleServer("alpha", function(input, output, session) {

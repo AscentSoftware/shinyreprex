@@ -108,7 +108,7 @@ reprex_packages <- function(..., session = shiny::getDefaultReactiveDomain()) {
 #' @seealso [reprex_packages()] to inspect the detected set without writing a
 #' lockfile, and [register_reactives()] to record reactives from within each module.
 #'
-#' @examplesIf interactive() && rlang::is_installed(c("shiny", "renv"))
+#' @examplesIf interactive()
 #' library(shiny)
 #'
 #' numeric_iris <- reactive(purrr::keep(iris, is.numeric))
@@ -121,8 +121,6 @@ reprex_lockfile <- function(...,
                             lockfile = "renv.lock",
                             exclude = NULL,
                             session = shiny::getDefaultReactiveDomain()) {
-  rlang::check_installed("renv", reason = "to create a lockfile")
-
   if (is.null(packages)) {
     packages <- reprex_packages(..., session = session)
   }

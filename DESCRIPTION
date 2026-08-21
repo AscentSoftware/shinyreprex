@@ -18,10 +18,10 @@ Imports:
     constructive,
     purrr,
     rlang,
+    renv,
     styler
 Suggests:
     knitr,
-    renv,
     rmarkdown,
     shiny,
     spelling,

@@ -71,8 +71,6 @@ walk_packages <- function(expr, env, seen = character(), packages = character())
   packages
 }
 
-IGNORED_SHINY_CALLS <- c("req", "validate")
-
 #' Environment of a Called Reactive
 #'
 #' @description

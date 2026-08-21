@@ -61,5 +61,7 @@ class_call_reactval_setter <- S7::new_S3_class(".__reactval_setter")
 class_call_if <- S7::new_S3_class("if")
 class_call_switch <- S7::new_S3_class("switch")
 class_call_null <- S7::new_S3_class("NULL")
-class_call_shiny <- S7::new_union(S7::new_S3_class("req"), S7::new_S3_class("validate"))
 class_call_subset <- S7::new_union(S7::new_S3_class("$"), S7::new_S3_class("[["))
+
+IGNORED_SHINY_CALLS <- c("req", "validate")
+class_call_shiny <- do.call(S7::new_union, purrr::map(IGNORED_SHINY_CALLS, S7::new_S3_class))

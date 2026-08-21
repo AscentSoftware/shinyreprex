@@ -66,7 +66,7 @@ absolute path to control where it lands; inside a
 }
 }
 \examples{
-\dontshow{if (interactive() && rlang::is_installed(c("shiny", "renv"))) withAutoprint(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 library(shiny)
 
 numeric_iris <- reactive(purrr::keep(iris, is.numeric))
