@@ -49,5 +49,6 @@ Collate:
     'chunk_call.R'
     'chunk_generic.R'
     'chunk_reactive.R'
+    'lockfile_module.R'
     'package.R'
     'reprex_reactive.R'
