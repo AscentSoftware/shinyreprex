@@ -52,6 +52,6 @@ Collate:
     'chunk_generic.R'
     'chunk_reactive.R'
     'package.R'
+    'register_reactives.R'
     'reprex_lockfile.R'
     'reprex_reactive.R'
-    'register_reactives.R'
