@@ -2,6 +2,8 @@
 
 ## shinyreprex 0.2.0
 
+CRAN release: 2026-06-29
+
 New features:
 
 - Handling special cases of additional base functions `switch` and `[[`

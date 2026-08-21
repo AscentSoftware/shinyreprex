@@ -1,9 +1,9 @@
 pandoc: 3.8.3
-pkgdown: 2.2.0
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   shinyreprex: shinyreprex.html
-last_built: 2026-06-29T12:17Z
+last_built: 2026-08-21T10:59Z
 urls:
   reference: https://ascentsoftware.github.io/shinyreprex/reference
   article: https://ascentsoftware.github.io/shinyreprex/articles
