@@ -7,12 +7,21 @@
 <url><loc>https://ascentsoftware.github.io/shinyreprex/authors.html</loc></url>
 <url><loc>https://ascentsoftware.github.io/shinyreprex/index.html</loc></url>
 <url><loc>https://ascentsoftware.github.io/shinyreprex/news/index.html</loc></url>
+<url><loc>https://ascentsoftware.github.io/shinyreprex/reference/assert_reactives.html</loc></url>
 <url><loc>https://ascentsoftware.github.io/shinyreprex/reference/call_chunk_checks.html</loc></url>
+<url><loc>https://ascentsoftware.github.io/shinyreprex/reference/call_reactive_env.html</loc></url>
 <url><loc>https://ascentsoftware.github.io/shinyreprex/reference/index.html</loc></url>
 <url><loc>https://ascentsoftware.github.io/shinyreprex/reference/is_new_reactive.html</loc></url>
+<url><loc>https://ascentsoftware.github.io/shinyreprex/reference/reactive_expression.html</loc></url>
+<url><loc>https://ascentsoftware.github.io/shinyreprex/reference/register_reactives.html</loc></url>
+<url><loc>https://ascentsoftware.github.io/shinyreprex/reference/registered_reactives.html</loc></url>
+<url><loc>https://ascentsoftware.github.io/shinyreprex/reference/reprex_lockfile.html</loc></url>
+<url><loc>https://ascentsoftware.github.io/shinyreprex/reference/reprex_packages.html</loc></url>
 <url><loc>https://ascentsoftware.github.io/shinyreprex/reference/reprex_reactive.html</loc></url>
+<url><loc>https://ascentsoftware.github.io/shinyreprex/reference/reprex_store.html</loc></url>
 <url><loc>https://ascentsoftware.github.io/shinyreprex/reference/repro_chunk.html</loc></url>
 <url><loc>https://ascentsoftware.github.io/shinyreprex/reference/repro_s7.html</loc></url>
 <url><loc>https://ascentsoftware.github.io/shinyreprex/reference/s7_classes.html</loc></url>
+<url><loc>https://ascentsoftware.github.io/shinyreprex/reference/walk_packages.html</loc></url>
 </urlset>
 

@@ -7,15 +7,15 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/AscentSoftware/shinyreprex/blob/v0.2.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/AscentSoftware/shinyreprex/blob/main/DESCRIPTION)
 
 Baldry A (2026). *shinyreprex: Reproducible Code for 'Shiny' Objects*. R
-package version 0.2.0, <https://github.com/AscentSoftware/shinyreprex>.
+package version 0.3.0, <https://github.com/AscentSoftware/shinyreprex>.
 
     @Manual{,
       title = {shinyreprex: Reproducible Code for 'Shiny' Objects},
       author = {Ashley Baldry},
       year = {2026},
-      note = {R package version 0.2.0},
+      note = {R package version 0.3.0},
       url = {https://github.com/AscentSoftware/shinyreprex},
     }
