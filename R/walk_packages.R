@@ -43,8 +43,7 @@ walk_packages <- function(expr, env, seen = character(), packages = character())
 
   call_name <- rlang::call_name(expr)
 
-  # Shiny calls that are stripped when reproducing code contribute nothing, as
-  # the script is intended to run outside of Shiny. Mirrors `class_call_shiny`.
+  # Shiny calls that are stripped when reproducing code contribute nothing
   if (!is.null(call_name) && call_name %in% IGNORED_SHINY_CALLS) {
     return(packages)
   }
@@ -64,7 +63,10 @@ walk_packages <- function(expr, env, seen = character(), packages = character())
 
   packages <- union(packages, get_pkg_name(expr))
 
-  for (arg in as.list(expr)[-1L]) {
+  # Omitted arguments, such as the empty index in `iris[cond, ]` cannot be walked
+  arguments <- purrr::discard(as.list(expr)[-1L], rlang::is_missing)
+
+  for (arg in arguments) {
     packages <- walk_packages(arg, env, seen, packages)
   }
 
