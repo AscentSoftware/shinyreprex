@@ -1,8 +1,15 @@
-# shinyreprex 0.2.0
+# shinyreprex 0.3.0
 
 New features:
 
-* Handling special cases of additional base functions `switch` and `[[`
+* `reprex_lockfile` captures the package versions, sources and R version needed to reproduce 
+  one or more reactives as an `renv` lockfile, with `reprex_packages` exposing the detected 
+  packages so they can be offered for selection. Packages are detected from every branch
+  of an `if` or `switch`, so the set may be a superset of the `library()` calls in the
+  reproduced script
+* `register_reactives` records reactives against the Shiny session, so `reprex_lockfile` 
+  and `reprex_packages` can be called without arguments and still cover reactives owned by 
+  separate modules
 
 Bug fixes:
 
@@ -15,6 +22,17 @@ Bug fixes:
 * Select the correct branch when an `if` condition evaluates to a truthy value other
   than `TRUE`, such as a non-zero number. Previously the condition itself was
   reproduced in place of the `if` branch
+
+Other updates:
+
+* Added `cli` as a dependency, used for error and warning messages
+* Added `renv` as a dependency, used for producing the lockfile for packages used by reactives
+
+# shinyreprex 0.2.0
+
+New features:
+
+* Handling special cases of additional base functions `switch` and `[[`
 
 Other updates:
 
