@@ -17,8 +17,8 @@ Imports:
     cli,
     constructive,
     purrr,
-    rlang,
     renv,
+    rlang,
     styler
 Suggests:
     dplyr,
