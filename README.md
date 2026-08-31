@@ -15,6 +15,9 @@ Due to the interactiveness of Shiny, this isn't as easy to include out of the bo
 inputs set by the user, and need to be replaced in the reactive expressions to be able to run in an
 environment outside of Shiny.
 
+The script alone reproduces the code, but not the environment it ran in. The packages it depends on
+can also be captured as an `renv` lockfile, so the environment can be rebuilt rather than guessed at.
+
 ## Installation
 
 ``` r
@@ -91,4 +94,48 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+```
+
+## Pinning Package Versions
+
+`reprex_reactive` emits the `library()` calls a script needs, but not the versions those packages
+were at. `reprex_lockfile` records them, along with the R version and the full recursive dependency
+tree, as an [`renv`](https://rstudio.github.io/renv/) lockfile:
+
+```r
+output$lockfile <- downloadHandler(
+  filename = function() "renv.lock",
+  content = function(file) reprex_lockfile(summary_tbl, lockfile = file)
+)
+```
+
+Whoever receives the lockfile rebuilds the environment with:
+
+```r
+renv::restore(lockfile = "renv.lock")
+```
+
+In a modular application each module can register the reactives it owns, so a whole-application
+lockfile needs no reactives passed up to the top level:
+
+```r
+moduleServer(id, function(input, output, session) {
+  summary_tbl <- reactive(...)
+
+  register_reactives(summary_tbl)
+})
+
+# Elsewhere, covering every registered reactive
+reprex_lockfile(lockfile = file)
+```
+
+`reprex_packages` reports the detected packages, either to display them or to let the user narrow
+the set before pinning it via the `packages` argument.
+
+## Example Application
+
+An example covering all of the above ships with the package:
+
+```r
+shiny::runExample("lockfile", package = "shinyreprex")
 ```
