@@ -123,9 +123,9 @@ reprex_lockfile <- function(...,
                             session = shiny::getDefaultReactiveDomain()) {
   if (is.null(packages)) {
     packages <- reprex_packages(..., session = session)
-    detect_term <- "detected"
+    detect_term <- "detected" #nolint
   } else {
-    detect_term <- "selected"
+    detect_term <- "selected" #nolint
   }
 
   if (length(packages) == 0L) {
