@@ -21,6 +21,35 @@ test_that("A non-reactive object passed to reprex_packages errors", {
 })
 
 #### reprex_lockfile ####
+test_that("An empty package set warns differently depending on whether it was detected or selected", {
+  skip_on_cran()
+  skip_if_not_installed("renv")
+
+  test_server <- function(input, output, session) {
+    base_only <- reactive(nrow(iris))
+    with_purrr <- reactive(purrr::keep(iris, is.numeric))
+  }
+
+  lock <- tempfile(fileext = ".lock")
+  on.exit(unlink(lock), add = TRUE)
+
+  shiny::testServer(test_server, {
+    # Nothing found in the reactive itself.
+    expect_warning(
+      reprex_lockfile(base_only, lockfile = lock),
+      "No non-base packages detected",
+      fixed = TRUE
+    )
+
+    # Packages were available, but the caller narrowed them away.
+    expect_warning(
+      reprex_lockfile(with_purrr, packages = character(), lockfile = lock),
+      "No non-base packages selected",
+      fixed = TRUE
+    )
+  })
+})
+
 test_that("A restorable lockfile is written covering the reactive's packages", {
   skip_on_cran()
 

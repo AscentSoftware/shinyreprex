@@ -107,22 +107,31 @@ countsServer <- function(id) {
 #### UI ####
 ui <- bslib::page_navbar(
   title = "shinyreprex",
+  header = bslib::card(
+    fill = FALSE,
+    class = "mx-4 my-2",
+    bslib::card_header("About"),
+    p(
+      class = "mb-0 text-body-secondary",
+      "Each tab is a module that registers its own reactive with ",
+      code("register_reactives()"), ", so their scripts carry different ",
+      code("library()"), " calls. One lockfile pins the union of both."
+    ),
+    div(
+      class = "d-flex align-items-center",
+      div(
+        class = "mx-3",
+        checkboxGroupInput("packages", "Include in lockfile", inline = TRUE)
+      ),
+      div(
+        class = "mx-3",
+        downloadButton("lockfile", "Download renv.lock", class = "btn-primary")
+      )
+    )
+  ),
 
   bslib::nav_panel("Summary (purrr)", summaryUI("summary")),
-  bslib::nav_panel("Counts (dplyr)", countsUI("counts")),
-
-  bslib::nav_spacer(),
-  bslib::nav_menu(
-    "Options",
-    icon = shiny::icon("cog"),
-    align = "right",
-    bslib::nav_item(
-      checkboxGroupInput("packages", "Select Packages", choices = NULL, selected = NULL)
-    ),
-    bslib::nav_item(
-      downloadLink("lockfile", "Download renv.lock", class = "dropdown-item")
-    )
-  )
+  bslib::nav_panel("Counts (dplyr)", countsUI("counts"))
 )
 
 #### Server ####
@@ -137,9 +146,11 @@ server <- function(input, output, session) {
       session = session,
       inputId = "packages",
       choices = detected(),
-      selected = detected()
+      selected = detected(),
+      inline = TRUE
     )
-  })
+  }) |>
+    bindEvent(detected(), once = TRUE)
 
   output$lockfile <- downloadHandler(
     filename = function() "renv.lock",
