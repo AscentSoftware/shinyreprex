@@ -64,12 +64,96 @@
 <div class="section level2">
 <h2 id="using-shinyreprex">Using shinyreprex<a class="anchor" aria-label="anchor" href="#using-shinyreprex"></a>
 </h2>
-<p>There is a single exported function, <code>reprex_reactive</code>,
-that takes a reactive object and converts it into a script that can be
-reused outside of the Shiny application to reproduce the result of the
-reactive. This can be sent to a simple <code>verbatimTextOutput</code>
-or something more UX friendly such as the <a href="https://federiva.github.io/highlighter/" class="external-link">highlighter</a>
-package to display the script in the UI.</p>
+<p><code>reprex_reactive</code> takes a reactive object and converts it
+into a script that can be reused outside of the Shiny application to
+reproduce the result of the reactive. This can be sent to a simple
+<code>verbatimTextOutput</code> or something more UX friendly such as
+the <a href="https://federiva.github.io/highlighter/" class="external-link">highlighter</a> package to display the script in the
+UI.</p>
+<p>A script on its own reproduces the <em>code</em>, but not the
+environment it ran in. The remaining three functions close that gap:</p>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>reprex_reactive</code></td>
+<td>Turn a reactive into a stand-alone script</td>
+</tr>
+<tr class="even">
+<td><code>reprex_packages</code></td>
+<td>List the packages needed to run that script</td>
+</tr>
+<tr class="odd">
+<td><code>reprex_lockfile</code></td>
+<td>Capture those packages, their versions and sources as an
+<code>renv</code> lockfile</td>
+</tr>
+<tr class="even">
+<td><code>register_reactives</code></td>
+<td>Record reactives so the two functions above can be called with no
+arguments</td>
+</tr>
+</tbody>
+</table>
+<p>A worked example covering all four ships with the package:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runExample.html" class="external-link">runExample</a></span><span class="op">(</span><span class="st">"lockfile"</span>, package <span class="op">=</span> <span class="st">"shinyreprex"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="reproducing-the-environment">Reproducing the Environment<a class="anchor" aria-label="anchor" href="#reproducing-the-environment"></a>
+</h2>
+<p><code>reprex_reactive</code> emits the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls a
+script needs, but not the versions those packages were at.
+<code>reprex_lockfile</code> records them, along with the R version and
+the full recursive dependency tree, so the environment can be rebuilt
+rather than approximated.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">output</span><span class="op">$</span><span class="va">lockfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/downloadHandler.html" class="external-link">downloadHandler</a></span><span class="op">(</span></span>
+<span>  filename <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="st">"renv.lock"</span>,</span>
+<span>  content <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="fu"><a href="../reference/reprex_lockfile.html">reprex_lockfile</a></span><span class="op">(</span><span class="va">summary_tbl</span>, lockfile <span class="op">=</span> <span class="va">file</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Whoever receives the lockfile restores it with <code>renv</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/restore.html" class="external-link">restore</a></span><span class="op">(</span>lockfile <span class="op">=</span> <span class="st">"renv.lock"</span><span class="op">)</span></span></code></pre></div>
+<p>Use <code>reprex_packages</code> when you want to show the detected
+packages before pinning them, for example to let the user narrow the
+set:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/reprex_lockfile.html">reprex_lockfile</a></span><span class="op">(</span><span class="va">summary_tbl</span>, packages <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">packages</span>, lockfile <span class="op">=</span> <span class="va">file</span><span class="op">)</span></span></code></pre></div>
+<p>Supplying <code>packages</code> is also the escape hatch when the
+detector cannot see a package, such as one attached only for an operator
+or an S3 method.</p>
+<div class="section level3">
+<h3 id="registering-reactives-across-modules">Registering Reactives Across Modules<a class="anchor" aria-label="anchor" href="#registering-reactives-across-modules"></a>
+</h3>
+<p>In a modular application the reactives worth reproducing live inside
+their own modules. Rather than returning them all up to the top level,
+each module registers what it owns:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">summaryServer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html" class="external-link">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">summary_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">Sepal.Width</span> <span class="op">~</span> <span class="va">Species</span>, data <span class="op">=</span> <span class="va">iris</span>, FUN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html" class="external-link">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">summary_fn</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="fu"><a href="../reference/register_reactives.html">register_reactives</a></span><span class="op">(</span><span class="va">summary_tbl</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="va">summary_tbl</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p><code><a href="../reference/reprex_lockfile.html">reprex_lockfile()</a></code> and <code><a href="../reference/reprex_packages.html">reprex_packages()</a></code>
+then cover the whole application when called with no arguments.
+Registrations are namespaced by module, held on the session, and
+discarded when the session ends, so they are never shared between
+concurrent users.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="best-practices">Best Practices<a class="anchor" aria-label="anchor" href="#best-practices"></a>
@@ -81,7 +165,7 @@ package to display the script in the UI.</p>
 input or reactive feeding into the provided reactive is updated,
 therefore it is recommended to have the reactive as an event
 attached.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">width_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="va">iris_filt</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">iris</span>, <span class="va">Species</span> <span class="op">==</span> <span class="st">"versicolor"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">iris_filt</span><span class="op">$</span><span class="va">Petal.Width</span><span class="op">)</span></span>
@@ -95,13 +179,38 @@ attached.</p>
 <span><span class="va">repro_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="fu"><a href="../reference/reprex_reactive.html">reprex_reactive</a></span><span class="op">(</span><span class="va">width_range</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
+<h3 id="register-reactives-at-module-setup">Register Reactives at Module Setup<a class="anchor" aria-label="anchor" href="#register-reactives-at-module-setup"></a>
+</h3>
+<p><code>register_reactives</code> does not evaluate the reactive it is
+given, so it can be called as soon as the reactive is defined, even when
+that reactive is still gated behind <code><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">shiny::req</a></code> or inputs
+that have yet to be set. Registering at setup means a lockfile covers
+every module regardless of which parts of the application the user
+happened to visit.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Good</span></span>
+<span><span class="va">summary_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">summary_fn</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">Sepal.Width</span> <span class="op">~</span> <span class="va">Species</span>, data <span class="op">=</span> <span class="va">iris</span>, FUN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html" class="external-link">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">summary_fn</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/register_reactives.html">register_reactives</a></span><span class="op">(</span><span class="va">summary_tbl</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Bad - the reactive is only registered once the user has viewed the output,</span></span>
+<span><span class="co"># so a lockfile downloaded beforehand silently misses it</span></span>
+<span><span class="va">output</span><span class="op">$</span><span class="va">table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html" class="external-link">renderTable</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="../reference/register_reactives.html">register_reactives</a></span><span class="op">(</span><span class="va">summary_tbl</span><span class="op">)</span></span>
+<span>  <span class="fu">summary_tbl</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
 <h3 id="put-side-effects-in-observers">Put Side-Effects in Observers<a class="anchor" aria-label="anchor" href="#put-side-effects-in-observers"></a>
 </h3>
 <p>This is general best-practice when developing Shiny applications, but
 avoid putting code for its side effects in <code>reactive</code>
 expressions, and instead create smaller reactive calls, and have
 observers running the code not intended for reproducing outputs.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Good</span></span>
 <span><span class="va">width_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="va">iris_filt</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">iris</span>, <span class="va">Species</span> <span class="op">==</span> <span class="st">"versicolor"</span><span class="op">)</span></span>
@@ -142,7 +251,7 @@ install all the packages associated with the application.</p>
 that they are defined within a reactive expression. If it is defined in
 the module, or in the global environment, the secret will be written in
 the assignment.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Good</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html" class="external-link">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">my_reactive</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -154,11 +263,70 @@ the assignment.</p>
 <span><span class="co"># Bad</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html" class="external-link">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">api_key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"MY_API_KEY"</span><span class="op">)</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="va">my_reactive</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="va">...</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
+</h2>
+<p>Reproducible code is generated by reading the expression held in a
+reactive, rather than by tracing what it does when it runs. That keeps
+the process cheap and independent of the current inputs, but it sets
+some boundaries worth knowing about.</p>
+<div class="section level3">
+<h3 id="only-the-reactive-expression-is-read">Only the Reactive Expression is Read<a class="anchor" aria-label="anchor" href="#only-the-reactive-expression-is-read"></a>
+</h3>
+<p>Calls made inside a function that is defined elsewhere are not
+visited, so anything used only in that function is neither reproduced
+nor detected as a package.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">summarise_widths</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dat</span><span class="op">)</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">my_reactive</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="fu">summarise_widths</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Here the script reproduces the call to <code>summarise_widths</code>,
+but <code>dplyr</code> is not reported. Keeping the work inside the
+reactive, or moving it into a package that the recipient installs,
+avoids this. See also <em>Create a Business Logic Package</em>
+above.</p>
+</div>
+<div class="section level3">
+<h3 id="non-standard-evaluation-is-best-effort">Non-Standard Evaluation is Best-Effort<a class="anchor" aria-label="anchor" href="#non-standard-evaluation-is-best-effort"></a>
+</h3>
+<p>Data-masking functions such as <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter</a></code> or
+<code>subset</code> refer to columns as if they were variables. Since
+the column names are only distinguishable from real variables at run
+time, a collision between the two can produce a misleading line in the
+script:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html" class="external-link">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">Species</span> <span class="op">&lt;-</span> <span class="st">"versicolor"</span></span>
+<span></span>
+<span>  <span class="va">my_reactive</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">iris</span>, <span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p><code>Species</code> in the reactive is a column of
+<code>iris</code>, but a variable of the same name exists in the module,
+so the script includes an unnecessary
+<code>Species &lt;- "versicolor"</code> assignment. The reproduced code
+still runs, because <code>subset</code> masks the variable with the
+column, but the extra line is misleading. Avoiding names that clash with
+the columns being masked avoids this.</p>
+<p>Similarly, an input captured with <code><a href="https://rlang.r-lib.org/reference/defusing-advanced.html" class="external-link">rlang::quo</a></code> and spliced
+back in later cannot be resolved to its value, and appears in the script
+with the <code>!!</code> still in place.</p>
+</div>
+<div class="section level3">
+<h3 id="detected-packages-can-be-a-superset">Detected Packages Can Be a Superset<a class="anchor" aria-label="anchor" href="#detected-packages-can-be-a-superset"></a>
+</h3>
+<p><code>reprex_packages</code> walks every branch of an <code>if</code>
+or <code>switch</code> rather than evaluating the condition and
+following only the branch that would be taken. A lockfile may therefore
+pin a package that the script does not end up needing. This is
+deliberate: a lockfile holding a package that is not needed is safer
+than one missing a package that is.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
