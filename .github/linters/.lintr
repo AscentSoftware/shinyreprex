@@ -3,3 +3,6 @@ linters: linters_with_defaults(
   object_name_linter = NULL
   ) # see vignette("lintr")
 encoding: "UTF-8"
+exclusions: list(
+    "inst/examples-shiny"
+  )
