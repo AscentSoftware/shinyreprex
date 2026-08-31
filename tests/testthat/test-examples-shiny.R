@@ -1,6 +1,6 @@
 app_dir <- function(name) {
   path <- system.file("examples-shiny", name, package = "shinyreprex")
-  if (!nzchar(path)) skip(paste0("Example app '", name, "' is not installed"))
+  if (!nzchar(path)) testthat::skip(paste0("Example app '", name, "' is not installed"))
   path
 }
 
