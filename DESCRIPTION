@@ -21,6 +21,7 @@ Imports:
     renv,
     styler
 Suggests:
+    dplyr,
     knitr,
     rmarkdown,
     shiny,
