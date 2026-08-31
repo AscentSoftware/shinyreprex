@@ -123,10 +123,13 @@ reprex_lockfile <- function(...,
                             session = shiny::getDefaultReactiveDomain()) {
   if (is.null(packages)) {
     packages <- reprex_packages(..., session = session)
+    detect_term <- "detected" #nolint
+  } else {
+    detect_term <- "selected" #nolint
   }
 
   if (length(packages) == 0L) {
-    cli::cli_warn("No non-base packages detected; the lockfile will record only the R version")
+    cli::cli_warn("No non-base packages {detect_term}; the lockfile will record only the R version")
   }
 
   # Snapshot against a throwaway project so renv never writes infrastructure

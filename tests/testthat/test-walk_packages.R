@@ -88,6 +88,17 @@ test_that("Shiny calls stripped when reproducing code do not pull in shiny", {
   })
 })
 
+test_that("An omitted index, as in a row subset, does not stop the walk", {
+  test_server <- function(input, output, session) {
+    tbl <- reactive(purrr::keep(iris[iris$Petal.Width > input$w, ], is.numeric))
+  }
+
+  shiny::testServer(test_server, {
+    session$setInputs(w = 1)
+    expect_identical(reprex_packages(tbl), "purrr")
+  })
+})
+
 test_that("A reactive using only base functions reports no packages", {
   test_server <- function(input, output, session) {
     tbl <- reactive(nrow(iris))
