@@ -22,6 +22,8 @@ Bug fixes:
 * Select the correct branch when an `if` condition evaluates to a truthy value other
   than `TRUE`, such as a non-zero number. Previously the condition itself was
   reproduced in place of the `if` branch
+* Functions with 0 arguments are now correctly treated as functions rather than 
+  reactive objects
 
 Other updates:
 
