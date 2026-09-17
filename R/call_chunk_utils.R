@@ -18,9 +18,12 @@
 #' @keywords internal
 #' @rdname call_chunk_checks
 is_reactive_call <- function(x, env = rlang::caller_env()) {
-  rlang::is_call(x) &&
+  call_name <- if (rlang::is_call(x)) rlang::call_name(x)
+
+  !is.null(call_name) &&
     length(rlang::call_args(x)) == 0 &&
-    rlang::call_name(x) %in% names(env)
+    call_name %in% names(env) &&
+    inherits(env[[call_name]], "reactive")
 }
 
 #' @description
@@ -39,10 +42,12 @@ is_reactive_val_call <- function(x, env = rlang::caller_env()) {
 #'
 #' @rdname call_chunk_checks
 is_reactive_val_setter_call <- function(x, env = rlang::caller_env()) {
-  rlang::is_call(x) &&
+  call_name <- if (rlang::is_call(x)) rlang::call_name(x)
+
+  !is.null(call_name) &&
     length(rlang::call_args(x)) == 1L &&
-    rlang::call_name(x) %in% names(env) &&
-    inherits(env[[rlang::call_name(x)]], "reactiveVal")
+    call_name %in% names(env) &&
+    inherits(env[[call_name]], "reactiveVal")
 }
 
 #' @description
