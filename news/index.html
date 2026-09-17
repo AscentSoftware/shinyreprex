@@ -44,6 +44,7 @@
 <li>Return an empty script for an <code>if</code> without an <code>else</code> whose condition is not met, rather than erroring with <code>subscript out of bounds</code>
 </li>
 <li>Select the correct branch when an <code>if</code> condition evaluates to a truthy value other than <code>TRUE</code>, such as a non-zero number. Previously the condition itself was reproduced in place of the <code>if</code> branch</li>
+<li>Functions with 0 arguments are now correctly treated as functions rather than reactive objects</li>
 </ul><p>Other updates:</p>
 <ul><li>Added <code>cli</code> as a dependency, used for error and warning messages</li>
 <li>Added <code>renv</code> as a dependency, used for producing the lockfile for packages used by reactives</li>
