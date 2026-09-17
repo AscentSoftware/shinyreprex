@@ -31,3 +31,14 @@ test_that("A reactive calling an unnamed function is reproduced rather than erro
   anon_fn <- shiny::reactive((function(x) x + 1)(1))
   expect_identical(reprex_reactive(anon_fn), "(function(x) x + 1)(1)")
 })
+
+# is_reactive_call ----
+test_that("A function call with no arguments is not classed as a reactive", {
+  testthat::skip_if_not_installed("shiny")
+
+  my_fn <- function() "hello"
+  my_reactive <- shiny::reactive("")
+
+  expect_false(is_reactive_call(quote(my_fn())))
+  expect_true(is_reactive_call(quote(my_reactive())))
+})

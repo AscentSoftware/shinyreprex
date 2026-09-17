@@ -22,7 +22,8 @@ is_reactive_call <- function(x, env = rlang::caller_env()) {
 
   !is.null(call_name) &&
     length(rlang::call_args(x)) == 0 &&
-    call_name %in% names(env)
+    call_name %in% names(env) &&
+    inherits(env[[call_name]], "reactive")
 }
 
 #' @description
