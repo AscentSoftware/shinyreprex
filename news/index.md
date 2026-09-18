@@ -2,6 +2,8 @@
 
 ## shinyreprex 0.3.0
 
+CRAN release: 2026-09-17
+
 New features:
 
 - `reprex_lockfile` captures the package versions, sources and R version
