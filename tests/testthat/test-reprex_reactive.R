@@ -347,6 +347,46 @@ test_that("Able to reproduce a reactive using [[ notation for inputs and reactiv
   )
 })
 
+test_that("header = TRUE prepends the ir header from reprex_header", {
+  test_server <- function(input, output, session) {
+    summary_tbl <- reactive(purrr::map(seq_len(input$n), function(x) x * 2))
+  }
+
+  shiny::testServer(
+    test_server,
+    expr = {
+      session$setInputs(n = 3)
+
+      script <- reprex_reactive(summary_tbl)
+      with_header <- reprex_reactive(summary_tbl, header = TRUE, exclude_newer = "2025-05-15")
+
+      expect_identical(
+        with_header,
+        paste0(reprex_header(summary_tbl, exclude_newer = "2025-05-15"), script)
+      )
+    }
+  )
+})
+
+test_that("Arguments in ... are ignored, with a warning, unless header = TRUE", {
+  test_server <- function(input, output, session) {
+    summary_tbl <- reactive(input$foo)
+  }
+
+  shiny::testServer(
+    test_server,
+    expr = {
+      session$setInputs(foo = "bar")
+
+      expect_warning(
+        reprex_reactive(summary_tbl, exclude_newer = "2025-05-15"),
+        "ignored unless",
+        fixed = TRUE
+      )
+    }
+  )
+})
+
 test_that("Reproducible reactives aren't rendered twice when referenced twice in a reactive", {
   reactiveTabServer <- function(id) {
     moduleServer(id, function(input, output, session) {

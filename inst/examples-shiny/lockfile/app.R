@@ -115,7 +115,7 @@ ui <- bslib::page_navbar(
       class = "mb-0 text-body-secondary",
       "Each tab is a module that registers its own reactive with ",
       code("register_reactives()"), ", so their scripts carry different ",
-      code("library()"), " calls. One lockfile pins the union of both."
+      code("library()"), " calls. One lockfile, or one ", code("ir"), " header, pins the union of both."
     ),
     div(
       class = "d-flex align-items-center",
@@ -126,6 +126,10 @@ ui <- bslib::page_navbar(
       div(
         class = "mx-3",
         downloadButton("lockfile", "Download renv.lock", class = "btn-primary")
+      ),
+      div(
+        class = "mx-3",
+        downloadButton("header", "Download ir header", class = "btn-secondary")
       )
     )
   ),
@@ -158,6 +162,13 @@ server <- function(input, output, session) {
       withProgress(message = "Resolving package versions", {
         reprex_lockfile(packages = input$packages, lockfile = file)
       })
+    }
+  )
+
+  output$header <- downloadHandler(
+    filename = function() "ir-header.R",
+    content = function(file) {
+      writeLines(reprex_header(packages = input$packages), file)
     }
   )
 }

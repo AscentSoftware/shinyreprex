@@ -132,6 +132,33 @@ reprex_lockfile(lockfile = file)
 `reprex_packages` reports the detected packages, either to display them or to let the user narrow
 the set before pinning it via the `packages` argument.
 
+## Reproducing in a Single File
+
+Sharing a lockfile means sharing two files: the script, and the `renv.lock` that goes with it.
+`reprex_header` packs the same package versions, R version and a dependency snapshot date into a
+comment block at the top of the script itself, using [`ir`](https://github.com/r-lib/ir), so there's
+only the one file to send. Pass `header = TRUE` to `reprex_reactive` to prepend it:
+
+```r
+output$code <- renderText(reprex_reactive(summary_tbl, header = TRUE))
+```
+
+Extra arguments are forwarded to `reprex_header`, for example to pin the snapshot date explicitly:
+
+```r
+reprex_reactive(summary_tbl, header = TRUE, exclude_newer = "2025-05-15")
+```
+
+Whoever receives the script runs it with:
+
+```sh
+ir run script.R
+```
+
+`ir` pins each package to the version it was generated with, and resolves the rest of the dependency
+tree against a Posit Package Manager snapshot, rather than recording every transitive package
+explicitly as `reprex_lockfile` does.
+
 ## Example Application
 
 An example covering all of the above ships with the package:
