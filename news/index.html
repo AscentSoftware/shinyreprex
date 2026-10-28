@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shinyreprex</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,9 +29,18 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.svg" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/AscentSoftware/shinyreprex/blob/v0.3.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/AscentSoftware/shinyreprex/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.0" id="shinyreprex-040">shinyreprex 0.4.0<a class="anchor" aria-label="anchor" href="#shinyreprex-040"></a></h2>
+<p>New features:</p>
+<ul><li>
+<code>reprex_header</code> captures the package versions, R version and a dependency snapshot date needed to reproduce one or more reactives as a single <a href="https://github.com/r-lib/ir" class="external-link"><code>ir</code></a> header, so the header can be pasted above the script from <code>reprex_reactive</code> and shared as one file, with no separate lockfile or project to restore</li>
+<li>
+<code>reprex_reactive</code> gains a <code>header</code> argument that prepends the <code>ir</code> header for the reactive being reproduced, with <code>...</code> forwarded to <code>reprex_header</code>
+</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="shinyreprex-030">shinyreprex 0.3.0<a class="anchor" aria-label="anchor" href="#shinyreprex-030"></a></h2><p class="text-muted">CRAN release: 2026-09-17</p>
 <p>New features:</p>
