@@ -31,7 +31,8 @@ functions close that gap:
 | `reprex_reactive` | Turn a reactive into a stand-alone script |
 | `reprex_packages` | List the packages needed to run that script |
 | `reprex_lockfile` | Capture those packages, their versions and sources as an `renv` lockfile |
-| `register_reactives` | Record reactives so the two functions above can be called with no arguments |
+| `reprex_header` | Capture the same information as a single `ir` header, pasted above the script |
+| `register_reactives` | Record reactives so the functions above can be called with no arguments |
 
 A worked example covering all four ships with the package:
 
@@ -67,6 +68,33 @@ reprex_lockfile(summary_tbl, packages = input$packages, lockfile = file)
 
 Supplying `packages` is also the escape hatch when the detector cannot see a package, such as one
 attached only for an operator or an S3 method.
+
+## Reproducing Without a Separate File
+
+Sharing a lockfile means sharing two files: the script, and the `renv.lock` that goes with it.
+`reprex_header` packs the same package versions, R version and a dependency snapshot date into a
+comment block at the top of the script itself, using [`ir`](https://github.com/r-lib/ir), so there's
+only the one file to send. Pass `header = TRUE` to `reprex_reactive` to prepend it:
+
+```r
+output$code <- renderText(reprex_reactive(summary_tbl, header = TRUE))
+```
+
+Arguments after `header` are forwarded to `reprex_header`, for example to pin the snapshot date
+explicitly rather than defaulting to today:
+
+```r
+reprex_reactive(summary_tbl, header = TRUE, exclude_newer = "2025-05-15")
+```
+
+Call `reprex_header` directly, rather than through `reprex_reactive`, to cover several reactives
+with one header.
+
+Whoever receives the script runs it with `ir run script.R`, with no project or lockfile to restore
+first. `ir` resolves the recursive dependency tree itself, by pinning CRAN and Bioconductor to the
+snapshot named by `exclude_newer`, rather than recording every transitive package explicitly as
+`reprex_lockfile` does. Everything said above about `packages`, `exclude` and `register_reactives`
+for `reprex_lockfile` applies the same way to `reprex_header`.
 
 ### Registering Reactives Across Modules
 

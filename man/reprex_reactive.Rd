@@ -4,14 +4,22 @@
 \alias{reprex_reactive}
 \title{Reproduce Code}
 \usage{
-reprex_reactive(x)
+reprex_reactive(x, header = FALSE, ...)
 }
 \arguments{
 \item{x}{\code{shiny::reactive} object to make reproducible}
+
+\item{header}{Whether to prepend a \code{\link[=reprex_header]{reprex_header()}} pinning the packages,
+R version and a dependency snapshot date \code{x} needs, so the returned script
+is reproducible as a single file. Defaults to \code{FALSE}.}
+
+\item{...}{Passed on to \code{\link[=reprex_header]{reprex_header()}} when \code{header} is \code{TRUE}, for
+example \code{exclude_newer} or \code{isolated}. Ignored, with a warning, otherwise.}
 }
 \value{
 A character string, that when printed (using \code{base::cat}),
-displays the script that reproduces the contents of \code{x}.
+displays the script that reproduces the contents of \code{x}, optionally preceded
+by the \code{ir} header from \code{\link[=reprex_header]{reprex_header()}}.
 }
 \description{
 Construct the code within a given \code{shiny::reactive} object
@@ -67,10 +75,19 @@ server <- function(input, output, session) {
 
   output$table <- renderTable(summary_tbl())
   output$code <- renderText(reprex_reactive(summary_tbl))
+
+  # A single file, reproducible with `ir run script.R`
+  output$code_with_header <- renderText(
+    reprex_reactive(summary_tbl, header = TRUE, exclude_newer = "2025-05-15")
+  )
 }
 
 if (interactive()) {
   shinyApp(ui, server)
 }
 
+}
+\seealso{
+\code{\link[=reprex_header]{reprex_header()}} to build the header on its own, for example to
+cover several reactives with one header.
 }

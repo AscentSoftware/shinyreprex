@@ -1,3 +1,14 @@
+# shinyreprex 0.4.0
+
+New features:
+
+* `reprex_header` captures the package versions, R version and a dependency snapshot date needed
+  to reproduce one or more reactives as a single [`ir`](https://github.com/r-lib/ir) header, so
+  the header can be pasted above the script from `reprex_reactive` and shared as one file, with
+  no separate lockfile or project to restore
+* `reprex_reactive` gains a `header` argument that prepends the `ir` header for the reactive being
+  reproduced, with `...` forwarded to `reprex_header`
+
 # shinyreprex 0.3.0
 
 New features:

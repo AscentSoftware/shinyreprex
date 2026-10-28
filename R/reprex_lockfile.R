@@ -60,6 +60,44 @@ reprex_packages <- function(..., session = shiny::getDefaultReactiveDomain()) {
     unique()
 }
 
+#' Resolve the Packages to Pin
+#'
+#' @description
+#' Shared by [reprex_lockfile()] and [reprex_header()]: detect packages from
+#' `...` when `packages` is `NULL`, remove any named in `exclude`, and warn
+#' when the resulting set is empty, wording the warning to say whether the set
+#' was detected or supplied by the caller.
+#'
+#' @param ... Passed to [reprex_packages()] when `packages` is `NULL`.
+#' @param packages Character vector of package names, or `NULL` to detect them
+#' from `...`.
+#' @param exclude Character vector of package names to remove from the result.
+#' @param session The Shiny session to read registered reactives from. Only
+#' used when `...` is empty and `packages` is `NULL`.
+#' @param empty_warning Text describing what happens when the resolved set is
+#' empty, substituted into `"No non-base packages {detect_term}; {empty_warning}"`.
+#'
+#' @returns
+#' A character vector of package names.
+#'
+#' @keywords internal
+resolve_reprex_packages <- function(..., packages, exclude, session, empty_warning) {
+  if (is.null(packages)) {
+    packages <- reprex_packages(..., session = session)
+    detect_term <- "detected" #nolint
+  } else {
+    detect_term <- "selected" #nolint
+  }
+
+  packages <- setdiff(packages, exclude)
+
+  if (length(packages) == 0L) {
+    cli::cli_warn("No non-base packages {detect_term}; {empty_warning}")
+  }
+
+  packages
+}
+
 #' Create a Lockfile to Reproduce Reactives
 #'
 #' @description
@@ -121,16 +159,13 @@ reprex_lockfile <- function(...,
                             lockfile = "renv.lock",
                             exclude = NULL,
                             session = shiny::getDefaultReactiveDomain()) {
-  if (is.null(packages)) {
-    packages <- reprex_packages(..., session = session)
-    detect_term <- "detected" #nolint
-  } else {
-    detect_term <- "selected" #nolint
-  }
-
-  if (length(packages) == 0L) {
-    cli::cli_warn("No non-base packages {detect_term}; the lockfile will record only the R version")
-  }
+  packages <- resolve_reprex_packages(
+    ...,
+    packages = packages,
+    exclude = exclude,
+    session = session,
+    empty_warning = "the lockfile will record only the R version"
+  )
 
   # Snapshot against a throwaway project so renv never writes infrastructure
   # into (or modifies the .Rbuildignore of) the running application's directory.

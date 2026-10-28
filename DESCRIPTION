@@ -1,7 +1,7 @@
 Type: Package
 Package: shinyreprex
 Title: Reproducible Code for 'Shiny' Objects
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: c(person("Ashley", "Baldry", email = "ashley.baldry@acuityanalytics.com", role = c("aut", "cre")))
 Description: Provides functionality to extract reactive expressions from a 'shiny' application and 
     convert them into stand-alone R scripts. This enables users to reproduce tables and visualisations 
@@ -29,7 +29,7 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/Needs/website: rmarkdown, ascentsoftware/acuitydown
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB
@@ -55,6 +55,7 @@ Collate:
     'package.R'
     'reactive_expression.R'
     'register_reactives.R'
+    'reprex_header.R'
     'reprex_lockfile.R'
     'reprex_reactive.R'
     'walk_packages.R'
