@@ -106,7 +106,7 @@ isolate(cat(reprex_header(numeric_iris, exclude_newer = "2025-05-15")))
 #> #!/usr/bin/env -S ir run
 #> #| packages:
 #> #|   - purrr==1.2.2
-#> #| r-version: "==4.6.1"
+#> #| r-version: "==4.6.2"
 #> #| isolated: true
 #> #| exclude-newer: "2025-05-15"
 ```

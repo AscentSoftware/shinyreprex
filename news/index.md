@@ -2,6 +2,8 @@
 
 ## shinyreprex 0.4.0
 
+CRAN release: 2026-10-28
+
 New features:
 
 - `reprex_header` captures the package versions, R version and a
